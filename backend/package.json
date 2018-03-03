@@ -1,0 +1,26 @@
+{
+  "name": "fantasy-marchmadness-backend",
+  "version": "1.0.0",
+  "description": "Node Express backend for march madness app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ALeonard9/fantasy-marchmadness.git"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "Adam Leonard (aleonard9@Hotmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ALeonard9/fantasy-marchmadness/issues"
+  },
+  "homepage": "https://github.com/ALeonard9/fantasy-marchmadness#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  }
+}
