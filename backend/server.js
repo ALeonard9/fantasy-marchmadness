@@ -9,7 +9,7 @@ const chalk = require('chalk');
 const mysql_lib = require('./lib/mysql');
 const scraper = require('./lib/scraper');
 const cors = require('cors');
-const cron = require('node-cron');
+var CronJob = require('cron').CronJob;
 
 var today = new Date();
 var environment =  process.env.environment || 'local'
@@ -20,9 +20,9 @@ winston.info(chalk.yellow('Starting:' + today));
 const PORT = process.env.mmbackendport || 8080;
 const HOST = '0.0.0.0';
 
-cron.schedule('* * * * *'), function() {
-  console.log('Cronning!')
-}
+var scrape_cron = new CronJob('00 */3 * * * *', function() {
+  scraper.scrape();
+}, null, false, 'America/New_York');
 
 // App
 const app = express();
@@ -146,6 +146,14 @@ app.get('/scrape_team_mascots/:id', async (req, res) => {
 app.get('/scrape/:id', async (req, res) => {
     var response = await scraper.scrape(req.params.id);
     res.send(JSON.stringify(response));
+});
+app.get('/cron/start', async (req, res) => {
+    scrape_cron.start()
+    res.send(JSON.stringify('SUCCESS'));
+});
+app.get('/cron/stop', async (req, res) => {
+    scrape_cron.stop()
+    res.send(JSON.stringify('SUCCESS'));
 });
 
 app.listen(PORT, HOST);
