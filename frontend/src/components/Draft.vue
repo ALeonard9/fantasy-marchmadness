@@ -74,7 +74,7 @@
     },
     methods: {
       loadDraft(){
-        fetch(`http://localhost:8080/draft/randomizer`, defaultOptions)
+        fetch(`${process.env.backend_url}/draft/randomizer`, defaultOptions)
           .then((response) => {
             return response.json();
           })
@@ -120,7 +120,7 @@
           ...defaultOptions,
           method: 'POST',
           body: JSON.stringify(draft_entry)
-        }) 
+        })
         .then((response) => {
           return response.json();
         })
