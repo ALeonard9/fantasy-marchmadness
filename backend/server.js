@@ -9,6 +9,7 @@ const chalk = require('chalk');
 const mysql_lib = require('./lib/mysql');
 const scraper = require('./lib/scraper');
 const cors = require('cors');
+const cron = require('node-cron');
 
 var today = new Date();
 var environment =  process.env.environment || 'local'
@@ -18,6 +19,10 @@ winston.info(chalk.yellow('Starting:' + today));
 // Constants
 const PORT = process.env.mmbackendport || 8080;
 const HOST = '0.0.0.0';
+
+cron.schedule('* * * * *'), function() {
+  console.log('Cronning!')
+}
 
 // App
 const app = express();
