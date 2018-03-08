@@ -105,7 +105,7 @@
     },
     methods: {
       loadPlayerboard(){
-        fetch(`http://localhost:8080/playerboard`, defaultOptions)
+        fetch(`${process.env.backend_url}/playerboard`, defaultOptions)
           .then((response) => {
             return response.json();
           })
@@ -119,7 +119,7 @@
                   break;
                 case 2:
                   if(element.name) { return }
-                  break;  
+                  break;
               }
               if (this.score_filter){
                 if (element.scoring_average < 10.0){ return }
