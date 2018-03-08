@@ -1,6 +1,6 @@
 FROM node:carbon
 # Create app directory
-RUN apt-get -y install carbon
+RUN apt-get -y install cron
 
 ADD crontab /etc/cron.d/scrape
 
