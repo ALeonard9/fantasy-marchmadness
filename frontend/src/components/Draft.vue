@@ -130,7 +130,7 @@
         })
       },
       resetDraft(){
-        fetch(`http://localhost:8080/draft/reset`, defaultOptions)
+        fetch(`${process.env.backend_url}/draft/reset`, defaultOptions)
           .then((response) => {
             return response.json();
           })
