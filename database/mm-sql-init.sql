@@ -20,18 +20,18 @@ CREATE TABLE `mm`.`team` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   UNIQUE INDEX `school_UNIQUE` (`school` ASC));
-  
+
   CREATE TABLE `mm`.`owner` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `display_name` VARCHAR(45) NULL,
-  `draft_position` INT NULL DEFAULT 0,
+  `draft_position` INT NULL DEFAULT NULL,
   `secret` VARCHAR(45) NULL,
   `created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP(),
   `updated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC));
-  
+
   CREATE TABLE `mm`.`player` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `full_name` VARCHAR(45) NULL,
@@ -83,4 +83,3 @@ SELECT id, name, display_name, draft_position FROM mm.owner o ORDER BY RAND();
 
 SET SQL_SAFE_UPDATES = 0;
 set global max_connections = 2000;
-
