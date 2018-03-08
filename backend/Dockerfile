@@ -1,5 +1,15 @@
 FROM node:carbon
 # Create app directory
+RUN apt-get -y install carbon
+
+ADD crontab /etc/cron.d/scrape
+
+RUN chmod 0644 /etc/cron.d/scrape
+
+RUN touch /var/log/cron.log
+
+CMD cron
+
 WORKDIR /usr/src/app
 
 # Install app dependencies
