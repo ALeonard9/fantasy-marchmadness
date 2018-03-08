@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  node-backend:
+    build: backend
+    ports:
+      - "8080:8080"
+  node-frontend:
+    build: frontend
+    depends_on:
+      - node-backend
+    ports:
+      - "80:80"
+    environment:
+      mm_backend_host: "mm.aleonard.us"
+      mm_backend_port: 8080
+      PORT: 80
