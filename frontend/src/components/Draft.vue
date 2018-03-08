@@ -116,7 +116,7 @@
         this.items.forEach((element) => {
           draft_entry[element.new_draft_position] = element.id;
         })
-        fetch(`http://localhost:8080/draft`, {
+        fetch(`${process.env.backend_url}/draft`, {
           ...defaultOptions,
           method: 'POST',
           body: JSON.stringify(draft_entry)

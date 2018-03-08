@@ -1,7 +1,7 @@
 'strict';
 
 const express = require('express');
-const bodyParser = require('body-parser');  
+const bodyParser = require('body-parser');
 const async = require('async');
 const asyncP = require('async-promises');
 const winston = require('winston');
@@ -21,7 +21,7 @@ const HOST = '0.0.0.0';
 
 // App
 const app = express();
-app.use(bodyParser.json());  
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({origin: '*'}));
 app.use(function(req, res, next) {
@@ -100,15 +100,12 @@ app.post('/draft', async (req, res) => {
         var keys = Object.keys (req.body);
         for(var i =0, length = keys.length; i< length; i++){
             query_string += "UPDATE `mm`.`owner` SET `draft_position` = '" + keys[i] + "' WHERE `id` = '" + req.body[keys[i]] + "'; "
-            console.log(i);
-            console.log(keys.length);
             if (i === keys.length -1 ){
                 resolve();
             }
         }
-    })           
+    })
     .then(async () => {
-        // console.log('FINAL: ' + query_string)
         var response = await mysql_lib.mysql_query("Draft set", query_string)
         res.send(JSON.stringify(response));
     })
@@ -145,6 +142,6 @@ app.get('/scrape/:id', async (req, res) => {
     var response = await scraper.scrape(req.params.id);
     res.send(JSON.stringify(response));
 });
- 
+
 app.listen(PORT, HOST);
 winston.info(chalk.yellow(`Running on http://${HOST}:${PORT}`));

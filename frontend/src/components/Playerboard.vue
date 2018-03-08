@@ -69,7 +69,6 @@
         draft_filter: 0,
         mobile: true,
         loading: true,
-        // pagination: {'sortBy': 'scoring_average', 'descending': true, 'rowsPerPage': -1},
         headers: [
           { text: 'Owner', align: 'left', value: 'owner'},
           { text: 'Player', value: 'full_name' },
@@ -137,9 +136,6 @@
                 seed: element.seed,
                 region: element.region,
                 eliminated: element.eliminated
-              }
-              if (element.school === 'Virginia Tech'){
-                console.log(entry)
               }
               this.items.push(entry);
               this.loading = false;
