@@ -15,3 +15,7 @@ https://docs.docker.com/compose/install/#master-builds
 [root@ip-172-31-82-42 fantasy-marchmadness]# export mm_mysql_pass='GrapeJam321'
 
 /usr/local/bin/docker-compose -f docker-compose.prod.yml up -d
+
+## Amazon linux
+yum UPDATE
+sudo yum install -y docker
