@@ -19,3 +19,4 @@ https://docs.docker.com/compose/install/#master-builds
 ## Amazon linux
 yum UPDATE
 sudo yum install -y docker
+sudo service docker start
