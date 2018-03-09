@@ -13,7 +13,7 @@
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-left">{{ props.item.name }}</td>
-            <td class="text-xs-center">{{ props.item.remaining }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.remaining }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
@@ -49,7 +49,7 @@
         pagination: {'sortBy': 'total', 'descending': true, 'rowsPerPage': -1},
         headers: [
           { text: 'Owner', sortable: false, align: 'left', value: 'owner'},
-          { text: 'Players Remaining', value: 'remaining' },
+          { text: 'Players Remaining', value: 'remaining', class: 'hidden-xs-only' },
           { text: 'First round', value: 'round1', class: 'hidden-xs-only' },
           { text: 'Second round', value: 'round2', class: 'hidden-xs-only' },
           { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only' },
