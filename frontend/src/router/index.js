@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'helloworld',
-      component: HelloWorld
+      name: 'Leaderboard',
+      component: Leaderboard
     },
     {
       path: '/leaderboard',
