@@ -82,6 +82,7 @@
         });
       })
       this.loadLeaderboard()
+      this.timer = setInterval(this.loadLeaderboard(), 180000)
     },
     methods: {
       loadLeaderboard(){

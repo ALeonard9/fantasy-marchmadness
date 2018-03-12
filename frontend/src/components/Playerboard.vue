@@ -80,7 +80,8 @@
         items: []
       }
     },
-    created: function () {},
+    created: function () {
+    },
     mounted: function () {
       if(window.innerWidth < 1100){
         this.mobile = true;
@@ -101,6 +102,8 @@
         });
       })
       this.loadPlayerboard()
+      this.timer = setInterval(this.loadPlayerboard(), 180000)
+
     },
     methods: {
       loadPlayerboard(){

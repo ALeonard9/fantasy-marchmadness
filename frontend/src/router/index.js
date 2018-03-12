@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Leaderboard from '@/components/Leaderboard'
 import Playerboard from '@/components/Playerboard'
 import Draft from '@/components/Draft'
+import Owner from '@/components/Owner'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/draft',
       name: 'Draft',
       component: Draft
+    },
+    {
+      path: '/owner/:id',
+      name: 'Owner',
+      component: Owner
     }
   ]
 })
