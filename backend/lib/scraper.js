@@ -95,7 +95,7 @@ function scrape_players(){
     })
 }
 
-function scrape_teams(){
+function scrape_teams_before(){
     new Promise((resolve, reject) => {
         request('http://www.espn.com/mens-college-basketball/bracketology', function (error, resp, html) {
             let $ = cheerio.load(html);
@@ -110,6 +110,34 @@ function scrape_teams(){
                     var response = await mysql_lib.mysql_query_param(`Team ${$(element2).text()} added`, query_string, [$(element2).text()])
                     scrape_team_mascots($(element2).attr('href').substring( $(element2).attr('href').lastIndexOf('/') + 1));
                     resolve();
+                })
+            })
+
+        })
+    })  
+}
+
+function scrape_teams(){
+    new Promise((resolve, reject) => {
+        request('http://www.espn.com/mens-college-basketball/tournament/bracket', function (error, resp, html) {
+            let $ = cheerio.load(html);
+            $('.region').each(async function (index, element){
+                var region = $(element).children('.regtitle').text();
+                $(element).find('dl').each(async function (index2, element2){
+                    $(element2).find('a').each(async function (index3, element3){
+                        var team_name = $(element3).attr('title');
+                        if (team_name === undefined){
+                            return
+                        }
+                        var raw_url = $(element3).attr('href').split('/');
+                        var espn_id = raw_url[ raw_url.length -2 ];
+                        // TODO Grab RANK, scrape game
+
+                        var query_string = "INSERT INTO `mm`.`team` (`school`, `espn_id`, `region`) VALUES (?, '" + espn_id + "', '" + region + "');";
+                        var response = await mysql_lib.mysql_query_param(`Team ${team_name} added`, query_string, [team_name])
+                        scrape_team_mascots(espn_id);
+                        resolve();
+                    })
                 })
             })
 
