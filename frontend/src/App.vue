@@ -74,7 +74,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Test Application',
+      title: 'Fantasy March Madness',
       menu_title: 'Menu'
     }
   },
