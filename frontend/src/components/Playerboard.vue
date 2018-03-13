@@ -33,7 +33,7 @@
         >
           <template slot="items" slot-scope="props">
             <td>{{ props.item.name }}</td>
-            <td class="text-xs-left">{{ props.item.full_name }}</td>
+            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.full_name }}</td>
             <td class="text-xs-left dark">{{ props.item.school }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.region }}</td>
@@ -129,6 +129,7 @@
             this.items = [];
             data.forEach((element) => {
               var owner_concat = '';
+              var eliminted_player = false;
               switch (this.draft_filter) {
                 case 1:
                   if(!element.name) { return }
@@ -143,6 +144,9 @@
               if (element.name) {
                 owner_concat = `${element.display_name} (${element.name})`;
               }
+              if (element.eliminated > 0 ){
+                eliminated_player = true;
+              }
               var entry = {
                 value: false,
                 name: owner_concat,
@@ -152,7 +156,7 @@
                 school: `${element.school} ${element.mascot}`,
                 seed: element.seed,
                 region: element.region,
-                eliminated: element.eliminated,
+                eliminated: eliminated_player,
                 round1: element.round1,
                 round2: element.round2,
                 round3: element.round3,
@@ -197,5 +201,8 @@ li {
 }
 a {
   color: #42b983;
+}
+eliminated {
+  background-color: IndianRed
 }
 </style>
