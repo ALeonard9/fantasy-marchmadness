@@ -18,7 +18,6 @@
           :headers="headers"
           :items="items"
           :loading="loading"
-          :pagination.sync="pagination"
           hide-actions
           class="elevation-1"
         >
@@ -62,7 +61,6 @@
         mobile: true,
         loading: true,
         draft_set: false,
-        pagination: {},
         headers: [
           { text: 'Player', value: 'full_name' },
           { text: 'School', value: 'school'},
