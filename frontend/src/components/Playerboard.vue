@@ -35,9 +35,9 @@
             <td  v-bind:class="{ drafted: props.item.drafted }">{{ props.item.name }}</td>
             <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.full_name }}</td>
             <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.school }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.seed }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.region }}</td>
-            <td class="text-xs-center">{{ props.item.scoring_average }}</td>
+            <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.seed }}</td>
+            <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.region }}</td>
+            <td class="text-xs-center" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
