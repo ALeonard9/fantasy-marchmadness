@@ -23,8 +23,8 @@
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left">{{ props.item.full_name }}</td>
-            <td class="text-xs-left">{{ props.item.school }}</td>
+            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.full_name }}</td>
+            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.school }}</td>
             <td class="text-xs-center">{{ props.item.scoring_average }}</td>
             <td class="text-xs-center">{{ props.item.round1 }}</td>
             <td class="text-xs-center">{{ props.item.round2 }}</td>
@@ -131,6 +131,10 @@
             }
             this.section_title = `${data[0].display_name} (${data[0].name})`;
             data.forEach((element) => {
+              var eliminated_player = false;
+              if (element.eliminated > 0 ){
+                eliminated_player = true;
+              }
               var entry = {
                 value: false,
                 full_name: element.full_name,
@@ -140,7 +144,7 @@
                 team_id: element.team_id,
                 seed: element.seed,
                 region: element.region,
-                eliminated: element.eliminated,
+                eliminated: eliminated_player,
                 round1: element.round1,
                 round2: element.round2,
                 round3: element.round3,

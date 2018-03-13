@@ -32,9 +32,9 @@
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.full_name }}</td>
-            <td class="text-xs-left dark">{{ props.item.school }}</td>
+            <td  v-bind:class="{ drafted: props.item.drafted }">{{ props.item.name }}</td>
+            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.full_name }}</td>
+            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.school }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.region }}</td>
             <td class="text-xs-center">{{ props.item.scoring_average }}</td>
@@ -130,6 +130,7 @@
             data.forEach((element) => {
               var owner_concat = '';
               var eliminated_player = false;
+              var drafted = false;
               switch (this.draft_filter) {
                 case 1:
                   if(!element.name) { return }
@@ -143,6 +144,7 @@
               }
               if (element.name) {
                 owner_concat = `${element.display_name} (${element.name})`;
+                drafted = true;
               }
               if (element.eliminated > 0 ){
                 eliminated_player = true;
@@ -150,6 +152,7 @@
               var entry = {
                 value: false,
                 name: owner_concat,
+                drafted: drafted,
                 full_name: element.full_name,
                 espn_id: element.espn_id,
                 scoring_average: element.scoring_average,
@@ -202,7 +205,10 @@ li {
 a {
   color: #42b983;
 }
-eliminated {
+.eliminated {
   background-color: IndianRed
+}
+.drafted {
+  background-color: lightyellow;
 }
 </style>
