@@ -75,7 +75,7 @@ SELECT o.name, o.display_name, o.id, count(case when t.eliminated = 0 then 1 els
 
 USE `mm`;
 CREATE  OR REPLACE VIEW `top_player` AS
-SELECT o.id as owner_id, o.name, o.display_name, full_name, p.id, t.eliminated, (round1 + round2 + round3 + round4 + round5 + round6) as Total FROM mm.player p, mm.owner o, mm.team t WHERE p.owner_id = o.id AND p.team_id = t.id order by Total desc;
+SELECT o.id as owner_id, o.name, o.display_name, full_name, p.id, t.eliminated, (round1 + round2 + round3 + round4 + round5 + round6) as total FROM mm.player p, mm.owner o, mm.team t WHERE p.owner_id = o.id AND p.team_id = t.id order by total desc;
 
 USE `mm`;
 CREATE  OR REPLACE VIEW `draft_randomizer` AS

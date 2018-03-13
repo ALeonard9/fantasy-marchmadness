@@ -2,7 +2,18 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <h1 :text="section_title"></h1>
+        <v-flex xs12 sm6>
+          <v-select
+            @select='loadOwner'
+            :items="owners"
+            v-model="owner_id"
+            item-text="text"
+            item-value="value"
+            label="Select an owner"
+            autocomplete
+          ></v-select>
+      </v-flex>
+      </br>
         <v-data-table
           :headers="headers"
           :items="items"
@@ -12,16 +23,19 @@
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-center">{{ props.item.draft_position }}</td>
-            <td v-if="!draft_set" class="text-xs-center">{{ props.item.new_draft_position }}</td>
+            <td class="text-xs-left">{{ props.item.full_name }}</td>
+            <td class="text-xs-left">{{ props.item.school }}</td>
+            <td class="text-xs-center">{{ props.item.scoring_average }}</td>
+            <td class="text-xs-center">{{ props.item.round1 }}</td>
+            <td class="text-xs-center">{{ props.item.round2 }}</td>
+            <td class="text-xs-center">{{ props.item.round3 }}</td>
+            <td class="text-xs-center">{{ props.item.round4 }}</td>
+            <td class="text-xs-center">{{ props.item.round5 }}</td>
+            <td class="text-xs-center">{{ props.item.round6 }}</td>
+            <td class="text-xs-center">{{ props.item.total }}</td>
            </template>
         </v-data-table>
-        <div class="text-xs-center pt-2">
-          <v-btn v-if="!draft_set" color="primary" @click.native="loadDraft">Randomize</v-btn>
-          <v-btn v-if="!draft_set" color="primary" @click.native="setDraft">Set Draft Order</v-btn>
-          <v-btn v-if="draft_set" color="primary" @click.native="resetDraft">Clear Draft Order</v-btn>
-        </div>
+
       </v-layout>
     </v-slide-y-transition>
   </v-container>
@@ -42,18 +56,31 @@
   export default {
     data () {
       return {
-        owner_id = 1,
-        section_title = "",
+        owner_id: 1,
+        owners: [],
+        section_title: "",
         mobile: true,
         loading: true,
         draft_set: false,
         pagination: {},
-        headers: [],
+        headers: [
+          { text: 'Player', value: 'full_name' },
+          { text: 'School', value: 'school'},
+          { text: 'Scoring Average', value: 'scoring_average'},
+          { text: 'Round 1', value: 'round1'},
+          { text: 'Round 2', value: 'round2'},
+          { text: 'Sweet Sixteen', value: 'round3'},
+          { text: 'Elite Eight', value: 'round4'},
+          { text: 'Final Four', value: 'round5'},
+          { text: 'Championship', value: 'round6'},
+          { text: 'Total', value: 'total'}
+        ],
         items: []
       }
     },
     created: function () {},
     mounted: function () {
+      this.owner_id = parseInt(this.$route.params.id) || 1;
       if(window.innerWidth < 1100){
         this.mobile = true;
         console.log('Mobile')
@@ -72,47 +99,59 @@
           }
         });
       })
+      this.getOwners()
       this.loadOwner()
     },
     methods: {
+      getOwners(){
+        fetch(`${process.env.backend_url}/owners`, defaultOptions)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            data.forEach((element) => {
+              var entry = {
+                value: element.id,
+                text: `${element.display_name} (${element.name})`
+              }
+              this.owners.push(entry)
+            })
+          })
+      },
       loadOwner(){
-        this.owner_id = $route.params.id;
         fetch(`${process.env.backend_url}/everything/owner/${this.owner_id}`, defaultOptions)
           .then((response) => {
             return response.json();
           })
           .then((data) => {
-            this.section_title = `${data.first().display_name} (${data.first().name})`;
-            // this.items = [];
-            // if (data[0].draft_position){
-            //   this.draft_set = true;
-            //   this.pagination = {'sortBy': 'draft_position', 'ascending': true, 'rowsPerPage': -1};
-            //   this.headers = [
-            //     { text: 'Owner', sortable: false, align: 'left', value: 'owner'},
-            //     { text: 'Current Draft Position', value: 'draft_position' }
-            //   ];
-            //  } else {
-            //     this.draft_set = false;
-            //     this.pagination = {'sortBy': 'new_draft_position', 'ascending': true, 'rowsPerPage': -1};
-            //     this.headers = [
-            //       { text: 'Owner', sortable: false, align: 'left', value: 'owner'},
-            //       { text: 'Current Draft Position', value: 'draft_position' },
-            //       { text: 'Proposed Draft Position', value: 'new_draft_position' }
-            //     ];
-            //  }
-            // var proposed = 0;
-            // data.forEach((element) => {
-            //   proposed += 1;
-            //   var entry = {
-            //     value: false,
-            //     name: `${element.display_name} (${element.name})`,
-            //     id: element.id,
-            //     draft_position: element.draft_position,
-            //     new_draft_position: proposed
-            //   }
-            //   this.items.push(entry);
-            //   this.loading = false;
-            // })
+            this.items = [];
+            if (data.length === 0) {
+              this.loading = false;
+              return;
+            }
+            this.section_title = `${data[0].display_name} (${data[0].name})`;
+            data.forEach((element) => {
+              var entry = {
+                value: false,
+                full_name: element.full_name,
+                espn_id: element.espn_id,
+                scoring_average: element.scoring_average,
+                school: `${element.school} ${element.mascot}`,
+                team_id: element.team_id,
+                seed: element.seed,
+                region: element.region,
+                eliminated: element.eliminated,
+                round1: element.round1,
+                round2: element.round2,
+                round3: element.round3,
+                round4: element.round4,
+                round5: element.round5,
+                round6: element.round6,
+                total: element.total
+              }
+              this.items.push(entry);
+              this.loading = false;
+            })
           })
       }
     }

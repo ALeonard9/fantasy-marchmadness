@@ -67,6 +67,11 @@ export default {
         path: 'playerboard'
       },
       {
+        icon: 'assignment',
+        title: 'Owners',
+        path: 'owner'
+      },
+      {
         icon: 'swap_horiz',
         title: 'Draft',
         path: 'draft'
