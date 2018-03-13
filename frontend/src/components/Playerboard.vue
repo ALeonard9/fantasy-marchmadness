@@ -129,7 +129,7 @@
             this.items = [];
             data.forEach((element) => {
               var owner_concat = '';
-              var eliminted_player = false;
+              var eliminated_player = false;
               switch (this.draft_filter) {
                 case 1:
                   if(!element.name) { return }
