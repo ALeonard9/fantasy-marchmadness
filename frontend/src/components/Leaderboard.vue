@@ -61,7 +61,8 @@
         items: []
       }
     },
-    created: function () {},
+    created: function () {
+    },
     mounted: function () {
       if(window.innerWidth < 1100){
         this.mobile = true;
@@ -81,11 +82,14 @@
           }
         });
       })
+      this.interval1 = setInterval(function(){
+        this.loadLeaderboard()
+      }.bind(this), 180000);
       this.loadLeaderboard()
-      this.timer = setInterval(this.loadLeaderboard(), 180000)
     },
     methods: {
       loadLeaderboard(){
+        console.log("Loading");
         fetch(`${process.env.backend_url}/scoreboard`, defaultOptions)
           .then((response) => {
             return response.json();

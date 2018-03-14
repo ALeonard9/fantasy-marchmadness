@@ -1,6 +1,3 @@
--- RUN THIS FIRST, ONLY ONCE.
--- CREATE SCHEMA mm;
-
 DROP TABLE IF EXISTS `mm`.`game`;
 DROP TABLE IF EXISTS `mm`.`player`;
 DROP TABLE IF EXISTS `mm`.`team`;
