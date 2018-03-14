@@ -8,6 +8,7 @@ const winston = require('winston');
 const chalk = require('chalk');
 const mysql_lib = require('./lib/mysql');
 const scraper = require('./lib/scraper');
+const slack = require('./lib/slack');
 const cors = require('cors');
 var CronJob = require('cron').CronJob;
 
@@ -156,7 +157,7 @@ app.get('/cron/stop', async (req, res) => {
     res.send(JSON.stringify('SUCCESS'));
 });
 app.post('/slack', async (req, res) => {
-  var response = await scraper.scrape_team_mascots(req.body.user_name, req.body.text);
+  var response = await slack.slack(req.body.user_name, req.body.text);
   res.send(JSON.stringify(response));
 });
 
