@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 });
 app.route('/owners')
   .get(async (req, res) => {
-    var response = await mysql_lib.mysql_query("Owner", "SELECT id, name, display_name, draft_position FROM mm.owner")
+    var response = await mysql_lib.mysql_query("Owner", "SELECT id, name, display_name, draft_position FROM mm.owner ORDER BY name")
     res.send(JSON.stringify(response));
   })
 app.get('/owners/:id', async (req, res) => {
