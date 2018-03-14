@@ -38,13 +38,13 @@
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.region }}</td>
             <td class="text-xs-center" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
-            <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
+            <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.total }}</td> -->
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td> -->
+            <td class="text-xs-center hidden-xs-only">{{ props.item.total }}</td>
           </template>
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.
@@ -82,14 +82,14 @@
           { text: 'School', value: 'school'},
           { text: 'Seed', value: 'seed', class: 'hidden-xs-only' },
           { text: 'Region', value: 'region', class: 'hidden-xs-only' },
-          { text: 'Scoring', value: 'scoring_average'}
-          // { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
+          { text: 'Scoring', value: 'scoring_average'},
+          { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
           // { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
           // { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
           // { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
           // { text: 'Final Four', value: 'round5', class: 'hidden-xs-only'},
           // { text: 'Championship', value: 'round6', class: 'hidden-xs-only'},
-          // { text: 'Total', value: 'total'}
+          { text: 'Total', value: 'total'}
         ],
         items: []
       }
