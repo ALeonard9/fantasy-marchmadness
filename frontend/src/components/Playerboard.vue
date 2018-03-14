@@ -116,8 +116,9 @@
         });
       })
       this.loadPlayerboard()
-      this.timer = setInterval(this.loadPlayerboard(), 180000)
-
+      this.interval1 = setInterval(function(){
+        this.loadPlayerboard()
+      }.bind(this), 180000);
     },
     methods: {
       loadPlayerboard(){

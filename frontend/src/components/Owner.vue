@@ -100,6 +100,9 @@
         });
       })
       this.getOwners()
+      this.interval1 = setInterval(function(){
+        this.loadOwner()
+      }.bind(this), 180000);
       this.loadOwner()
     },
     methods: {
