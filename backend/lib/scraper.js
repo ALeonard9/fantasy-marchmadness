@@ -8,9 +8,9 @@ function scrape(game_param) {
         var round = '';
         var query_string = '';
         if(game_param){
-            var response = await mysql_lib.mysql_query("Games", `SELECT home_team_id, away_team_id, g.espn_id as game_espn_id, round, p.id as player_id, full_name, p.espn_id as player_espn_id, p.team_id  FROM mm.game g, mm.player p WHERE active = 1 AND (p.team_id = home_team_id OR p.team_id = away_team_id) AND g.espn_id = ${game_param}`)
+            var response = await mysql_lib.mysql_query("Games", `SELECT home_team_id, away_team_id, g.espn_id as game_espn_id, round, p.id as player_id, full_name, p.espn_id as player_espn_id, p.team_id  FROM mm.game g, mm.player p WHERE active = 1 AND (p.team_id = home_team_id OR p.team_id = away_team_id) AND g.espn_id = ${game_param} AND p.owner_id IS NOT NULL`)
         } else {
-            var response = await mysql_lib.mysql_query("Games", "SELECT home_team_id, away_team_id, g.espn_id as game_espn_id, round, p.id as player_id, full_name, p.espn_id as player_espn_id, p.team_id  FROM mm.game g, mm.player p WHERE active = 1 AND (p.team_id = home_team_id OR p.team_id = away_team_id)")
+            var response = await mysql_lib.mysql_query("Games", "SELECT home_team_id, away_team_id, g.espn_id as game_espn_id, round, p.id as player_id, full_name, p.espn_id as player_espn_id, p.team_id  FROM mm.game g, mm.player p WHERE active = 1 AND (p.team_id = home_team_id OR p.team_id = away_team_id) AND p.owner_id IS NOT NULL")
         }
         if (response.length < 1) {
             Promise.reject(new Error("No active games.")).then(resolved, rejected);
@@ -114,7 +114,7 @@ function scrape_teams_before(){
             })
 
         })
-    })  
+    })
 }
 
 function scrape_teams(){
@@ -142,7 +142,7 @@ function scrape_teams(){
             })
 
         })
-    })  
+    })
 }
 
 function scrape_team_mascots(team_espn_id){
@@ -156,9 +156,9 @@ function scrape_team_mascots(team_espn_id){
             var query_string = "UPDATE `mm`.`team` SET `school`= ?, `mascot`= ? WHERE `espn_id`='" + team_espn_id + "';"
             var response = await mysql_lib.mysql_query_param(`Team ${team_name} mascot ${mascot} updated`, query_string, [team_name,mascot])
             resolve();
-            
+
         })
-    })  
+    })
 }
 
 function add_players(team_id){
@@ -170,7 +170,7 @@ function add_players(team_id){
                 resolve();
             })
         })
-    })    
+    })
 }
 
 function rejected(result) {
@@ -179,37 +179,6 @@ function rejected(result) {
 function resolved(result) {
     console.log('Resolved');
 }
-
-// request('http://www.espn.com/mens-college-basketball/boxscore?gameId=401020693', function(error, response, html){
-//     let $ = cheerio.load(html);
-
-// $('.team.away').each(function(index, element){
-//     console.log($(element).find('.long-name').text());
-//     console.log($(element).find('.short-name').text());
-//     console.log($(element).find('.score').text());
-// })
-// $('.team.home').each(function(index, element){
-//     console.log($(element).find('.long-name').text());
-//     console.log($(element).find('.short-name').text());
-// console.log($(element).find('.score').text());
-// })
-// $('.col.column-one.gamepackage-away-wrap').each(function(index, element){
-//     console.log($(element).find("img").prop('src'));
-// })
-// $('.col.column-one.gamepackage-home-wrap').each(function(index, element){
-//     console.log($(element).find("img").prop('src'));
-// })
-// $("a[href*='3922040']").each(function(index, element){
-//     console.log($(element).parent().parent().find('.pts').text());
-// })
-
-// if final, set game to done, eliminate losing team
-// $('.status-detail').each(function(index, element){
-//     console.log($(element).text());
-// })
-
-
-// })
 
 module.exports = {
     scrape,
