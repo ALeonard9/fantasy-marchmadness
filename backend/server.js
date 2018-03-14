@@ -155,6 +155,30 @@ app.get('/cron/stop', async (req, res) => {
     scrape_cron.stop()
     res.send(JSON.stringify('SUCCESS'));
 });
+app.get('/slack', async (req, res) => {
+    console.log(req)
+    resp = {
+        "text": "It's 80 degrees right now.",
+        "attachments": [
+            {
+                "text":"Partly cloudy today and tomorrow"
+            }
+        ]
+    }
+    res.send(JSON.stringify(resp));
+});
+app.post('/slack', async (req, res) => {
+    console.log(req)
+    resp = {
+        "text": "It's 80 degrees right now.",
+        "attachments": [
+            {
+                "text":"Partly cloudy today and tomorrow"
+            }
+        ]
+    }
+    res.send(JSON.stringify(resp));
+});
 
 app.listen(PORT, HOST);
 winston.info(chalk.yellow(`Running on http://${HOST}:${PORT}`));
