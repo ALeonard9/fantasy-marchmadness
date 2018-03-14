@@ -181,4 +181,10 @@ li {
 a {
   color: #42b983;
 }
+.eliminated {
+  background-color: IndianRed
+}
+.drafted {
+  background-color: lightyellow;
+}
 </style>
