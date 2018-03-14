@@ -7,11 +7,17 @@ function slack(user, text){
       "username": "Fantasy March Madness",
       "text": "*Scoreboard*\n"
     };
-    return new Promise(async function (resolve, reject) {
+    let p1 = new Promise(async function (resolve, reject) {
         var response = await mysql_lib.mysql_query("Scoreboard", "SELECT * FROM mm.scoreboard")
         for (var i = 0, length = response.length; i < length; i++) {
-            slack_message.concat(`${response[i]["display_name"]} (${response[i]["name"]}): ${response[i]["total"]}\n`)
+            slack_message["text"].concat(`${response[i]["display_name"]} (${response[i]["name"]}): ${response[i]["total"]}\n`)
+            if (i === response.length - 1) {
+                resolve(slack_message);
+            }
         }
+    })
+    .then((msg) => {
+        resolve(msg);
     })
 }
 
