@@ -10,14 +10,17 @@ function slack(user, text){
     let p1 = new Promise(async function (resolve, reject) {
         var response = await mysql_lib.mysql_query("Scoreboard", "SELECT * FROM mm.scoreboard")
         for (var i = 0, length = response.length; i < length; i++) {
-            slack_message["text"].concat(`${response[i]["display_name"]} (${response[i]["name"]}): ${response[i]["total"]}\n`)
+            var addition = `${response[i]["display_name"]} (${response[i]["name"]}): ${response[i]["total"]}\n`
+            console.log(addition)
+            slack_message["text"].concat(addition)
             if (i === response.length - 1) {
+                console.log(JSON)
                 resolve(slack_message);
             }
         }
     })
     .then((msg) => {
-        resolve(msg);
+        return(msg);
     })
 }
 
