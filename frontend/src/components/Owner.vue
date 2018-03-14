@@ -24,6 +24,7 @@
           <template slot="items" slot-scope="props">
             <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.full_name }}</td>
             <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.school }}</td>
+            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
             <td class="text-xs-center">{{ props.item.scoring_average }}</td>
             <td class="text-xs-center">{{ props.item.round1 }}</td>
             <td class="text-xs-center">{{ props.item.round2 }}</td>
@@ -64,6 +65,7 @@
         headers: [
           { text: 'Player', value: 'full_name' },
           { text: 'School', value: 'school'},
+          { text: 'Seed', value: 'seed'},
           { text: 'Scoring Average', value: 'scoring_average'},
           { text: 'Round 1', value: 'round1'},
           { text: 'Round 2', value: 'round2'},
