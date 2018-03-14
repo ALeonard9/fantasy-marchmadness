@@ -155,29 +155,9 @@ app.get('/cron/stop', async (req, res) => {
     scrape_cron.stop()
     res.send(JSON.stringify('SUCCESS'));
 });
-app.get('/slack', async (req, res) => {
-    console.log(req)
-    resp = {
-        "text": "It's 80 degrees right now.",
-        "attachments": [
-            {
-                "text":"Partly cloudy today and tomorrow"
-            }
-        ]
-    }
-    res.send(JSON.stringify(resp));
-});
 app.post('/slack', async (req, res) => {
-    console.log(req)
-    resp = {
-        "text": "It's 80 degrees right now.",
-        "attachments": [
-            {
-                "text":"Partly cloudy today and tomorrow"
-            }
-        ]
-    }
-    res.send(JSON.stringify(resp));
+  var response = await scraper.scrape_team_mascots(req.body.user_name, req.body.text);
+  res.send(JSON.stringify(response));
 });
 
 app.listen(PORT, HOST);
