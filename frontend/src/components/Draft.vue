@@ -17,11 +17,11 @@
             <td v-if="!draft_set" class="text-xs-center">{{ props.item.new_draft_position }}</td>
            </template>
         </v-data-table>
-        <div class="text-xs-center pt-2">
+        <!-- <div class="text-xs-center pt-2">
           <v-btn v-if="!draft_set" color="primary" @click.native="loadDraft">Randomize</v-btn>
           <v-btn v-if="!draft_set" color="primary" @click.native="setDraft">Set Draft Order</v-btn>
           <v-btn v-if="draft_set" color="primary" @click.native="resetDraft">Clear Draft Order</v-btn>
-        </div>
+        </div> -->
       </v-layout>
     </v-slide-y-transition>
   </v-container>
