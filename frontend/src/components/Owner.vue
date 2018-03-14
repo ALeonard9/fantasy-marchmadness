@@ -182,9 +182,7 @@ a {
   color: #42b983;
 }
 .eliminated {
-  background-color: IndianRed
+  background-color: IndianRed !important;
 }
-.drafted {
-  background-color: lightyellow;
-}
+
 </style>
