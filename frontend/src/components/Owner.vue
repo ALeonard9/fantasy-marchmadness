@@ -19,6 +19,7 @@
           :items="items"
           :loading="loading"
           hide-actions
+          :pagination.sync="pagination"
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
@@ -61,6 +62,7 @@
         section_title: "",
         mobile: true,
         loading: true,
+        pagination: {'sortBy': 'total', 'descending': true, 'rowsPerPage': -1},
         draft_set: false,
         headers: [
           { text: 'Player', value: 'full_name' },
