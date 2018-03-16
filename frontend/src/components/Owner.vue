@@ -24,15 +24,15 @@
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.full_name }}</td>
-            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.school }}</td>
-            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
-            <td class="text-xs-center">{{ props.item.scoring_average }}</td>
-            <td class="text-xs-center">{{ props.item.round1 }}</td>
-            <td class="text-xs-center">{{ props.item.round2 }}</td>
-            <td class="text-xs-center">{{ props.item.round3 }}</td>
-            <td class="text-xs-center">{{ props.item.round4 }}</td>
-            <td class="text-xs-center">{{ props.item.round5 }}</td>
-            <td class="text-xs-center">{{ props.item.round6 }}</td>
+            <td class="text-xs-left hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.school }}</td>
+            <td class="text-xs-left hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.scoring_average }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td>
             <td class="text-xs-center">{{ props.item.total }}</td>
            </template>
         </v-data-table>
@@ -66,15 +66,15 @@
         draft_set: false,
         headers: [
           { text: 'Player', value: 'full_name' },
-          { text: 'School', value: 'school'},
-          { text: 'Seed', value: 'seed'},
-          { text: 'Scoring Average', value: 'scoring_average'},
-          { text: 'Round 1', value: 'round1'},
-          { text: 'Round 2', value: 'round2'},
-          { text: 'Sweet Sixteen', value: 'round3'},
-          { text: 'Elite Eight', value: 'round4'},
-          { text: 'Final Four', value: 'round5'},
-          { text: 'Championship', value: 'round6'},
+          { text: 'School', value: 'school', class: 'hidden-xs-only'},
+          { text: 'Seed', value: 'seed', class: 'hidden-xs-only'},
+          { text: 'Scoring Average', value: 'scoring_average', class: 'hidden-xs-only'},
+          { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
+          { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
+          { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
+          { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
+          { text: 'Final Four', value: 'round5', class: 'hidden-xs-only'},
+          { text: 'Championship', value: 'round6', class: 'hidden-xs-only'},
           { text: 'Total', value: 'total'}
         ],
         items: []
