@@ -79,7 +79,7 @@
         headers: [
           { text: 'Owner', align: 'left', value: 'owner'},
           { text: 'Player', value: 'full_name' },
-          { text: 'School', value: 'school', class: 'hidden-xs-only'},
+          { text: 'School', value: 'school'},
           { text: 'Seed', value: 'seed', class: 'hidden-xs-only' },
           { text: 'Region', value: 'region', class: 'hidden-xs-only' },
           { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'},
