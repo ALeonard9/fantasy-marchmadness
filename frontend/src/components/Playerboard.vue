@@ -34,17 +34,17 @@
           <template slot="items" slot-scope="props">
             <td  v-bind:class="{ drafted: props.item.drafted }">{{ props.item.name }}</td>
             <td class="text-xs-left" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.full_name }}</td>
-            <td class="text-xs-left" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.school }}</td>
+            <td class="text-xs-left " v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.school }}</td>
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.region }}</td>
-            <td class="text-xs-center" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
+            <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td> -->
-            <td class="text-xs-center hidden-xs-only">{{ props.item.total }}</td>
+            <td class="text-xs-center">{{ props.item.total }}</td>
           </template>
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.
@@ -79,10 +79,10 @@
         headers: [
           { text: 'Owner', align: 'left', value: 'owner'},
           { text: 'Player', value: 'full_name' },
-          { text: 'School', value: 'school'},
+          { text: 'School', value: 'school', class: 'hidden-xs-only'},
           { text: 'Seed', value: 'seed', class: 'hidden-xs-only' },
           { text: 'Region', value: 'region', class: 'hidden-xs-only' },
-          { text: 'Scoring', value: 'scoring_average'},
+          { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'},
           { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
           // { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
           // { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
