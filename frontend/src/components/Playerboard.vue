@@ -45,6 +45,7 @@
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td> -->
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td> -->
             <td class="text-xs-center hidden-xs-only">{{ props.item.total }}</td>
+          </template>
 
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.
