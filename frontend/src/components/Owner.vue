@@ -19,6 +19,7 @@
           :items="items"
           :loading="loading"
           hide-actions
+          :pagination.sync="pagination"
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
@@ -27,7 +28,11 @@
             <td class="text-xs-left hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.scoring_average }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
+<<<<<<< HEAD
             <td class="text-xs-center">{{ props.item.round2 }}</td>
+=======
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
+>>>>>>> 16214e2bd019d9301c5fae5091771c4b43cc2007
             <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
@@ -61,6 +66,7 @@
         section_title: "",
         mobile: true,
         loading: true,
+        pagination: {'sortBy': 'total', 'descending': true, 'rowsPerPage': -1},
         draft_set: false,
         headers: [
           { text: 'Player', value: 'full_name' },
