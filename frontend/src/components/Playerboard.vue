@@ -39,22 +39,13 @@
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.region }}</td>
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
-<<<<<<< HEAD
             <td class="text-xs-center">{{ props.item.round2 }}</td>
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td> -->
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td> -->
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td> -->
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td> -->
             <td class="text-xs-center hidden-xs-only">{{ props.item.total }}</td>
-=======
-            <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td> -->
-            <td class="text-xs-center">{{ props.item.total }}</td>
->>>>>>> 16214e2bd019d9301c5fae5091771c4b43cc2007
-          </template>
+
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.
           </v-alert>
