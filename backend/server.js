@@ -150,11 +150,14 @@ app.get('/scrape/:id', async (req, res) => {
 });
 app.get('/cron/start', async (req, res) => {
     scrape_cron.start()
-    res.send(JSON.stringify('SUCCESS'));
+    res.send(JSON.stringify('The Scraper has started.'));
+});
+app.get('/cron/status', async (req, res) => {
+    res.send(JSON.stringify('Is the scraper running: ', scrape_cron.running));
 });
 app.get('/cron/stop', async (req, res) => {
     scrape_cron.stop()
-    res.send(JSON.stringify('SUCCESS'));
+    res.send(JSON.stringify('The Scraper has stopped.'));
 });
 app.post('/slack', async (req, res) => {
   var response = await slack.slack(req.body.user_name, req.body.text);
