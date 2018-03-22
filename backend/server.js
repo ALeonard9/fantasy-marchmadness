@@ -152,9 +152,6 @@ app.get('/cron/start', async (req, res) => {
     scrape_cron.start()
     res.send(JSON.stringify('The Scraper has started.'));
 });
-app.get('/cron/status', async (req, res) => {
-    res.send(JSON.stringify('Is the scraper running: ', scrape_cron.running));
-});
 app.get('/cron/stop', async (req, res) => {
     scrape_cron.stop()
     res.send(JSON.stringify('The Scraper has stopped.'));
