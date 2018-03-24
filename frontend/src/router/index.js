@@ -34,6 +34,11 @@ export default new Router({
       path: '/owner/:id',
       name: 'Owner',
       component: Owner
+    },
+    {
+      path: '/owner',
+      name: 'Owner',
+      component: Owner
     }
   ]
 })
