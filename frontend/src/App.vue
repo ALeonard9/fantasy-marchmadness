@@ -59,22 +59,22 @@ export default {
       items: [{
         icon: 'bubble_chart',
         title: 'Leaderboard',
-        path: 'leaderboard'
+        path: '/leaderboard'
       },
       {
         icon: 'accessibility',
         title: 'Player Data',
-        path: 'playerboard'
+        path: '/playerboard'
       },
       {
         icon: 'assignment',
         title: 'Owners',
-        path: 'owner'
+        path: '/owner'
       },
       {
         icon: 'swap_horiz',
         title: 'Draft',
-        path: 'draft'
+        path: '/draft'
       }],
       miniVariant: false,
       right: true,
