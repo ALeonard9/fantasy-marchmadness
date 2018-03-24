@@ -28,9 +28,9 @@
             <td class="text-xs-left hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.scoring_average }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
-            <td class="text-xs-center">{{ props.item.round2 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
+            <td class="text-xs-center">{{ props.item.round4 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td>
             <td class="text-xs-center">{{ props.item.total }}</td>
