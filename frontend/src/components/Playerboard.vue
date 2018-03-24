@@ -40,8 +40,8 @@
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
-            <td class="text-xs-center">{{ props.item.round3 }}</td>
-            <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td> -->
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
+            <td class="text-xs-center">{{ props.item.round4 }}</td>
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td> -->
             <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td> -->
             <td class="text-xs-center">{{ props.item.total }}</td>
@@ -86,8 +86,8 @@
           { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'},
           { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
           { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
-          { text: 'Sweet Sixteen', value: 'round3'},
-          // { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
+          { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
+          { text: 'Elite Eight', value: 'round4'},
           // { text: 'Final Four', value: 'round5', class: 'hidden-xs-only'},
           // { text: 'Championship', value: 'round6', class: 'hidden-xs-only'},
           { text: 'Total', value: 'total'}
