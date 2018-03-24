@@ -70,9 +70,9 @@
           { text: 'Seed', value: 'seed', class: 'hidden-xs-only'},
           { text: 'Scoring Average', value: 'scoring_average', class: 'hidden-xs-only'},
           { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
-          { text: 'Round 2', value: 'round2'},
+          { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
           { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
-          { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
+          { text: 'Elite Eight', value: 'round4'},
           { text: 'Final Four', value: 'round5', class: 'hidden-xs-only'},
           { text: 'Championship', value: 'round6', class: 'hidden-xs-only'},
           { text: 'Total', value: 'total'}
