@@ -12,7 +12,7 @@
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left">{{ props.item.name }}</td>
+            <td class="text-xs-left"><router-link :to="{ name: 'Owner', params: {id: props.item.id } }">{{ props.item.name }}</router-link></td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.remaining }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
@@ -99,6 +99,7 @@
             data.forEach((element) => {
               var entry = {
                 value: false,
+                id: element.id,
                 name: `${element.display_name} (${element.name})`,
                 remaining: element.players_remaining,
                 round1: element.round1,

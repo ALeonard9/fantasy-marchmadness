@@ -31,11 +31,6 @@ export default new Router({
       component: Draft
     },
     {
-      path: '/owner',
-      name: 'Owner',
-      component: Owner
-    },
-    {
       path: '/owner/:id',
       name: 'Owner',
       component: Owner
