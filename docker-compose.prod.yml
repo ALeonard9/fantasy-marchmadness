@@ -3,6 +3,7 @@ version: '3'
 services:
   node-backend:
     build: backend
+    container_name: mm_backend
     restart: on-failure
     ports:
       - "8080:8080"
@@ -12,6 +13,7 @@ services:
       mm_mysql_pass: "< change >"
   node-frontend:
     build: frontend
+    container_name: mm_frontend
     restart: on-failure
     depends_on:
       - node-backend
