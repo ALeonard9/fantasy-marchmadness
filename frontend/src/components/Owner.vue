@@ -31,8 +31,8 @@
             <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
-            <td class="text-xs-center">{{ props.item.round5 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
+            <td class="text-xs-center">{{ props.item.round6 }}</td>
             <td class="text-xs-center">{{ props.item.total }}</td>
            </template>
         </v-data-table>
@@ -73,8 +73,8 @@
           { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
           { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
           { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
-          { text: 'Final Four', value: 'round5'},
-          { text: 'Championship', value: 'round6', class: 'hidden-xs-only'},
+          { text: 'Final Four', value: 'round5', class: 'hidden-xs-only'},
+          { text: 'Championship', value: 'round6'},
           { text: 'Total', value: 'total'}
         ],
         items: []
