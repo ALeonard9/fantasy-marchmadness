@@ -23,3 +23,4 @@ services:
       mm_backend_host: "mm.aleonard.us"
       mm_backend_port: 8080
       PORT: 80
+      backend_url: mm.aleonard.us:8080

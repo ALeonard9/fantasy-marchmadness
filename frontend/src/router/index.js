@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Leaderboard from '@/components/Leaderboard'
 import Playerboard from '@/components/Playerboard'
 import Draft from '@/components/Draft'
