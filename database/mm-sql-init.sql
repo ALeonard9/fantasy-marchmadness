@@ -35,6 +35,7 @@ CREATE TABLE `mm`.`team` (
   `espn_id` VARCHAR(45) NULL,
   `owner_id` INT NULL,
   `team_id` INT NULL,
+  `jersey` INT NULL,
   `scoring_average` FLOAT NULL,
   `round1` INT NULL DEFAULT 0,
   `round2` INT NULL DEFAULT 0,
@@ -80,3 +81,6 @@ SELECT id, name, display_name, draft_position FROM mm.owner o ORDER BY RAND();
 
 SET SQL_SAFE_UPDATES = 0;
 set global max_connections = 2000;
+
+-- Change the password below
+ALTER USER root IDENTIFIED WITH mysql_native_password BY 'abc123';
