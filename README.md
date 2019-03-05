@@ -28,3 +28,7 @@ https://docs.docker.com/compose/install/#master-builds
 yum UPDATE
 sudo yum install -y docker
 sudo service docker start
+
+## Useful commands
+Bring up just the database:
+```docker-compose up -d mysql-dev```

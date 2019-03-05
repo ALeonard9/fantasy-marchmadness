@@ -4,7 +4,6 @@
       <v-layout column align-center>
         <h1>Player Data</h1>
 
-          </br>
           <v-card>
           <v-card-title>
             <div class="text-xs-center pt-2">
@@ -104,7 +103,7 @@
         this.mobile = false;
       }
       this.$nextTick(function() {
-        window.addEventListener('resize', function(e) {
+        window.addEventListener('resize', function() {
           if(window.innerWidth < 1100){
             this.mobile = true;
           } else {

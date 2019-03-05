@@ -140,6 +140,10 @@ app.get('/scrape_teams', async (req, res) => {
     var response = await scraper.scrape_teams();
     res.send(JSON.stringify(response));
 });
+app.get('/scrape_teams_before', async (req, res) => {
+    var response = await scraper.scrape_teams_before();
+    res.send(JSON.stringify(response));
+});
 app.get('/scrape_team_mascots/:id', async (req, res) => {
     var response = await scraper.scrape_team_mascots(req.params.id);
     res.send(JSON.stringify(response));

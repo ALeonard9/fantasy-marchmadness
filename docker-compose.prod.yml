@@ -8,9 +8,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      mm_mysql_host: "orion.cbtm6ac1xc5y.us-east-1.rds.amazonaws.com"
+      mm_mysql_host: "< change >" # TODO: Change this
       mm_mysql_user: "mm_user"
-      mm_mysql_pass: "< change >"
+      mm_mysql_pass: "< change >" # TODO: Change this
   node-frontend:
     build: frontend
     container_name: mm_frontend
