@@ -24,7 +24,5 @@ services:
     ports:
       - "8082:80"
     environment:
-      mm_backend_host: "localhost"
-      mm_backend_port: 8080
       PORT: 80
-      backend_url: localhost:8080
+      VUE_APP_BACKEND_URL: "http://localhost:8080"

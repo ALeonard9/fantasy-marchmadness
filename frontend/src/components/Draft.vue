@@ -17,11 +17,11 @@
             <td v-if="!draft_set" class="text-xs-center">{{ props.item.new_draft_position }}</td>
            </template>
         </v-data-table>
-        <!-- <div class="text-xs-center pt-2">
+        <div class="text-xs-center pt-2">
           <v-btn v-if="!draft_set" color="primary" @click.native="loadDraft">Randomize</v-btn>
           <v-btn v-if="!draft_set" color="primary" @click.native="setDraft">Set Draft Order</v-btn>
           <v-btn v-if="draft_set" color="primary" @click.native="resetDraft">Clear Draft Order</v-btn>
-        </div> -->
+        </div>
       </v-layout>
     </v-slide-y-transition>
   </v-container>
@@ -54,19 +54,15 @@
     mounted: function () {
       if(window.innerWidth < 1100){
         this.mobile = true;
-        console.log('Mobile')
       } else {
         this.mobile = false;
-        console.log('Desktop')
       }
       this.$nextTick(function() {
-        window.addEventListener('resize', function(e) {
+        window.addEventListener('resize', function() {
           if(window.innerWidth < 1100){
             this.mobile = true;
-            console.log('Mobile')
           } else {
             this.mobile = false;
-            console.log('Desktop')
           }
         });
       })
@@ -74,7 +70,7 @@
     },
     methods: {
       loadDraft(){
-        fetch(`${process.env.backend_url}/draft/randomizer`, defaultOptions)
+        fetch(`${process.env.VUE_APP_BACKEND_URL}/draft/randomizer`, defaultOptions)
           .then((response) => {
             return response.json();
           })
@@ -116,7 +112,7 @@
         this.items.forEach((element) => {
           draft_entry[element.new_draft_position] = element.id;
         })
-        fetch(`${process.env.backend_url}/draft`, {
+        fetch(`${process.env.VUE_APP_BACKEND_URL}/draft`, {
           ...defaultOptions,
           method: 'POST',
           body: JSON.stringify(draft_entry)
@@ -124,17 +120,17 @@
         .then((response) => {
           return response.json();
         })
-        .then((data) => {
+        .then(() => {
           this.draft_set = true;
           this.loadDraft();
         })
       },
       resetDraft(){
-        fetch(`${process.env.backend_url}/draft/reset`, defaultOptions)
+        fetch(`${process.env.VUE_APP_BACKEND_URL}/draft/reset`, defaultOptions)
           .then((response) => {
             return response.json();
           })
-          .then((data) => {
+          .then(() => {
             this.draft_set = false;
             this.loadDraft();
           })

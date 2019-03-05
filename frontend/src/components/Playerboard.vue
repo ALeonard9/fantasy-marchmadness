@@ -100,19 +100,15 @@
     mounted: function () {
       if(window.innerWidth < 1100){
         this.mobile = true;
-        console.log('Mobile')
       } else {
         this.mobile = false;
-        console.log('Desktop')
       }
       this.$nextTick(function() {
         window.addEventListener('resize', function(e) {
           if(window.innerWidth < 1100){
             this.mobile = true;
-            console.log('Mobile')
           } else {
             this.mobile = false;
-            console.log('Desktop')
           }
         });
       })
@@ -123,7 +119,7 @@
     },
     methods: {
       loadPlayerboard(){
-        fetch(`${process.env.backend_url}/playerboard`, defaultOptions)
+        fetch(`${process.env.VUE_APP_BACKEND_URL}/playerboard`, defaultOptions)
           .then((response) => {
             return response.json();
           })

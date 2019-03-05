@@ -66,19 +66,15 @@
     mounted: function () {
       if(window.innerWidth < 1100){
         this.mobile = true;
-        console.log('Mobile')
       } else {
         this.mobile = false;
-        console.log('Desktop')
       }
       this.$nextTick(function() {
         window.addEventListener('resize', function(e) {
           if(window.innerWidth < 1100){
             this.mobile = true;
-            console.log('Mobile')
           } else {
             this.mobile = false;
-            console.log('Desktop')
           }
         });
       })
@@ -89,8 +85,7 @@
     },
     methods: {
       loadLeaderboard(){
-        console.log("Loading");
-        fetch(`${process.env.backend_url}/scoreboard`, defaultOptions)
+        fetch(`${process.env.VUE_APP_BACKEND_URL}/scoreboard`, defaultOptions)
           .then((response) => {
             return response.json();
           })
