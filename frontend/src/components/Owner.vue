@@ -85,19 +85,15 @@
       this.owner_id = parseInt(this.$route.params.id) || 1;
       if(window.innerWidth < 1100){
         this.mobile = true;
-        console.log('Mobile')
       } else {
         this.mobile = false;
-        console.log('Desktop')
       }
       this.$nextTick(function() {
         window.addEventListener('resize', function(e) {
           if(window.innerWidth < 1100){
             this.mobile = true;
-            console.log('Mobile')
           } else {
             this.mobile = false;
-            console.log('Desktop')
           }
         });
       })
@@ -109,7 +105,7 @@
     },
     methods: {
       getOwners(){
-        fetch(`${process.env.backend_url}/owners`, defaultOptions)
+        fetch(`${process.env.VUE_APP_BACKEND_URL}/owners`, defaultOptions)
           .then((response) => {
             return response.json();
           })
@@ -124,7 +120,7 @@
           })
       },
       loadOwner(){
-        fetch(`${process.env.backend_url}/everything/owner/${this.owner_id}`, defaultOptions)
+        fetch(`${process.env.VUE_APP_BACKEND_URL}/everything/owner/${this.owner_id}`, defaultOptions)
           .then((response) => {
             return response.json();
           })
