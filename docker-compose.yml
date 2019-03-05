@@ -7,6 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: abc123
       MYSQL_DATABASE: mm
+    volumes:
+      - ./database/data:/var/lib/mysql
     ports:
       - "3306:3306"
   node-backend:

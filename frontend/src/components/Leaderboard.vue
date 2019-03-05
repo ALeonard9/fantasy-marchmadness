@@ -70,7 +70,7 @@
         this.mobile = false;
       }
       this.$nextTick(function() {
-        window.addEventListener('resize', function(e) {
+        window.addEventListener('resize', function() {
           if(window.innerWidth < 1100){
             this.mobile = true;
           } else {

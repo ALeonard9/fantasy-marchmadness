@@ -3,17 +3,16 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <v-flex xs12 sm6>
-          <v-select
+          <v-autocomplete
             @select='loadOwner'
             :items="owners"
             v-model="owner_id"
             item-text="text"
             item-value="value"
             label="Select an owner"
-            autocomplete
-          ></v-select>
+          ></v-autocomplete>
       </v-flex>
-      </br>
+
         <v-data-table
           :headers="headers"
           :items="items"
@@ -89,7 +88,7 @@
         this.mobile = false;
       }
       this.$nextTick(function() {
-        window.addEventListener('resize', function(e) {
+        window.addEventListener('resize', function() {
           if(window.innerWidth < 1100){
             this.mobile = true;
           } else {
