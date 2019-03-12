@@ -90,7 +90,7 @@ function scrape_players(){
     return new Promise(async function (resolve, reject) {
         var response = await mysql_lib.mysql_query("Team espn_ids", `SELECT espn_id FROM mm.team`)
         for (var i = 0, length = response.length; i < length; i++) {
-            add_players(response[i]['espn_id'])
+          add_players(response[i]['espn_id'])
         }
     })
 }
@@ -149,19 +149,31 @@ function scrape_teams(){
 }
 
 function scrape_team_mascots(team_espn_id){
+
     new Promise((resolve, reject) => {
         var options = {
           url : `http://www.espn.com/mens-college-basketball/team/_/id/${team_espn_id}`,
-          timeout: 8000
+          timeout: 8000,
+          pool: {
+              maxSockets: Infinity
+          }
         }
         request(options, async function (error, resp, html) {
-            let $ = cheerio.load(html);
-            var team_name = $('span.ClubhouseHeader__Location').text();
-            var mascot = $('span.ClubhouseHeader__DisplayName').text();
-            var query_string = "UPDATE `mm`.`team` SET `school`= ?, `mascot`= ? WHERE `espn_id`='" + team_espn_id + "';"
-            var response = await mysql_lib.mysql_query_param(`Team ${team_name} mascot ${mascot} updated`, query_string, [team_name,mascot])
+            if (html){
+              let $ = cheerio.load(html);
+              var team_name = $('span.ClubhouseHeader__Location').text();
+              var mascot = $('span.ClubhouseHeader__DisplayName').text();
+              if (mascot == null){
+                console.log(html)
+              } else {
+                var query_string = "UPDATE `mm`.`team` SET `school`= ?, `mascot`= ? WHERE `espn_id`='" + team_espn_id + "';"
+                var response = await mysql_lib.mysql_query_param(`Team ${team_name} mascot ${mascot} updated`, query_string, [team_name,mascot])
+              }
+            } else {
+              console.log("DIDN'T WORK" + team_espn_id);
+              scrape_team_mascots(team_espn_id);
+            }
             resolve();
-
         })
     })
 }
@@ -169,6 +181,7 @@ function scrape_team_mascots(team_espn_id){
 function add_players(team_id){
     new Promise((resolve, reject) => {
         request(`http://www.espn.com/mens-college-basketball/team/stats/_/id/${team_id}`, function (error, resp, html) {
+            console.log(html)
             let $ = cheerio.load(html);
             $('table.tablehead').first().find('.oddrow, .evenrow').each(async function (index, element) {
                 var response = await mysql_lib.mysql_query_param(`Player ${$(element).find('a').text()} added`, "INSERT INTO `mm`.`player` (`full_name`, `espn_id`, `team_id`, `scoring_average`) VALUES (?, '" + $(element).attr('class').substring( $(element).attr('class').lastIndexOf('-') + 1) + "', (SELECT t.id FROM mm.team t WHERE t.espn_id = '"+team_id+"'), " +  $(element).children('td:nth-child(4)').text() + ");", [$(element).find('a').text()])
