@@ -181,12 +181,26 @@ function scrape_team_mascots(team_espn_id){
 function add_players(team_id){
     new Promise((resolve, reject) => {
         request(`http://www.espn.com/mens-college-basketball/team/stats/_/id/${team_id}`, function (error, resp, html) {
-            console.log(html)
             let $ = cheerio.load(html);
-            $('table.tablehead').first().find('.oddrow, .evenrow').each(async function (index, element) {
-                var response = await mysql_lib.mysql_query_param(`Player ${$(element).find('a').text()} added`, "INSERT INTO `mm`.`player` (`full_name`, `espn_id`, `team_id`, `scoring_average`) VALUES (?, '" + $(element).attr('class').substring( $(element).attr('class').lastIndexOf('-') + 1) + "', (SELECT t.id FROM mm.team t WHERE t.espn_id = '"+team_id+"'), " +  $(element).children('td:nth-child(4)').text() + ");", [$(element).find('a').text()])
+            var min_scoring_avg = 8.0;
+            var number_of_players = $('table.Table2__table__wrapper tbody tr td table tbody').first().find('tr').length -1;
+            $('table.Table2__table__wrapper tbody tr td table tbody').first().find('tr').each(async function (index, element) {
+              if (index == number_of_players) {
                 resolve();
+              } else {
+                var data_idx = $(element).attr('data-idx');
+                var full_name = $(element).find('td span a').text();
+                var espn_id = $(element).find('td span a').attr('href').split('/').slice(-1)[0];
+                var scoring_avg = $(`tr[data-idx='${data_idx}']`).eq(1).find('td span').eq(2).text();
+                if (scoring_avg > min_scoring_avg){
+                  var response = await mysql_lib.mysql_query_param(`Player ${full_name} added`, "INSERT INTO `mm`.`player` (`full_name`, `espn_id`, `team_id`, `scoring_average`) VALUES (?, '" + espn_id + "', (SELECT t.id FROM mm.team t WHERE t.espn_id = '"+team_id+"'), " +  scoring_avg + ");", [full_name])
+                  resolve();
+                } else {
+                  resolve();
+                }
+              }
             })
+
         })
     })
 }
@@ -203,5 +217,6 @@ module.exports = {
     scrape_players,
     scrape_teams,
     scrape_team_mascots,
-    scrape_teams_before
+    scrape_teams_before,
+    add_players
 };
