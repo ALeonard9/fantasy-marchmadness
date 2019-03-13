@@ -132,6 +132,10 @@ app.get('/scrape_all', async (req, res) => {
     var response = await scraper.scrape();
     res.send(JSON.stringify(response));
 });
+app.get('/add_players/:id', async (req, res) => {
+  var response = await scraper.add_players(req.params.id);
+    res.send(JSON.stringify(response));
+});
 app.get('/scrape_players', async (req, res) => {
     var response = await scraper.scrape_players();
     res.send(JSON.stringify(response));
