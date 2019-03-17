@@ -140,6 +140,14 @@ app.get('/scrape_players', async (req, res) => {
     var response = await scraper.scrape_players();
     res.send(JSON.stringify(response));
 });
+app.get('/update_player_info', async (req, res) => {
+    var response = await scraper.update_player_info();
+    res.send(JSON.stringify(response));
+});
+app.get('/update_player_info/:id', async (req, res) => {
+    var response = await scraper.update_player_info(req.params.id);
+    res.send(JSON.stringify(response));
+});
 app.get('/scrape_teams', async (req, res) => {
     var response = await scraper.scrape_teams();
     res.send(JSON.stringify(response));
