@@ -12,6 +12,12 @@
               <v-btn v-if="draft_filter === 0" color="primary" @click.native="draft_filter_toggle">All Players</v-btn>
               <v-btn v-if="draft_filter === 1" color="primary" @click.native="draft_filter_toggle">Drafted</v-btn>
               <v-btn v-if="draft_filter === 2" color="primary" @click.native="draft_filter_toggle">Undrafted</v-btn>
+              <download-csv
+                  class = "v-btn theme--light primary"
+                  name = "fantasymarchmadness2019.csv"
+                  :data   = "items">
+                  Download
+              </download-csv>
             </div>
             <v-spacer></v-spacer>
             <v-text-field
@@ -37,13 +43,13 @@
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.region }}</td>
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
+            <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
             <td class="text-xs-center">{{ props.item.round6 }}</td>
-            <td class="text-xs-center">{{ props.item.total }}</td>
+            <td class="text-xs-center">{{ props.item.total }}</td> -->
           </template>
 
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -82,14 +88,14 @@
           { text: 'School', value: 'school'},
           { text: 'Seed', value: 'seed', class: 'hidden-xs-only' },
           { text: 'Region', value: 'region', class: 'hidden-xs-only' },
-          { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'},
-          { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
-          { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
-          { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
-          { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
-          { text: 'Final Four', value: 'round5', class: 'hidden-xs-only'},
-          { text: 'Championship', value: 'round6'},
-          { text: 'Total', value: 'total'}
+          { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'}
+          // { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
+          // { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
+          // { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
+          // { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
+          // { text: 'Final Four', value: 'round5', class: 'hidden-xs-only'},
+          // { text: 'Championship', value: 'round6'},
+          // { text: 'Total', value: 'total'}
         ],
         items: []
       }

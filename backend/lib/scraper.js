@@ -95,6 +95,87 @@ function scrape_players(){
     })
 }
 
+function update_player_info(player_id) {
+  return new Promise(async function (resolve, reject) {
+      var espn_player_id = [];
+      var query_string = '';
+      if(player_id){
+          var response = await mysql_lib.mysql_query("Players", `SELECT espn_id FROM mm.player WHERE espn_id = ${player_id}`)
+      } else {
+          var response = await mysql_lib.mysql_query("Players", "SELECT espn_id FROM mm.player WHERE jersey IS NULL")
+      }
+      if (response.length < 1) {
+          Promise.reject(new Error("No players.")).then(resolved, rejected);
+          return;
+      }
+      let p1 = new Promise((resolve2, reject2) => {
+              for (var i = 0, length = response.length; i < length; i++) {
+                  row = response[i];
+                  if (!espn_player_id.includes(row['espn_id'])) {
+                      espn_player_id.push(row['espn_id']);
+                  }
+                  if (i === response.length - 1) {
+                      resolve2([espn_player_id]);
+                  }
+
+              }
+          })
+          .then(async ([espn_player_id]) => {
+              let p2 = new Promise((resolve3, reject3) => {
+                      for (var i = 0, length = espn_player_id.length; i < length; i++) {
+
+                        scrape_player_info(espn_player_id[i])
+
+                        if (i === espn_player_id.length - 1) {
+                            resolve3();
+                        }
+                      }
+                  })
+                  .then(() => {
+                      resolve(response);
+                  })
+
+          })
+  })
+}
+
+function scrape_player_info(espn_player_id){
+    new Promise((resolve, reject) => {
+        request(`http://www.espn.com/mens-college-basketball/player/_/id/${espn_player_id}`, function (error, resp, html) {
+          if (html) {
+            let $ = cheerio.load(html);
+              var info = $('.general-info').eq(0).text().split(' ');
+              var jersey = info[0].substr(1, info[0].length);
+
+
+              // if (isNaN(jersey) || !jersey || jersey.includes("'")){
+              //   console.log("CAUGHT IT1")
+              //   var query_string = `DELETE FROM mm.player WHERE espn_id = '${espn_player_id}';`;
+              //   var response = mysql_lib.mysql_query(`Player ${espn_player_id} deleted`, query_string)
+              //   resolve();
+              // }
+              var position = $('.general-info').children('li').first().text().split(' ').slice(-1)[0];
+              var class1 = $('.general-info').children('li:nth-child(2)').text();
+
+              // if (isNaN(class1) || !class1 || class1.includes("'")){
+              //   console.log("CAUGHT IT2")
+              //   var query_string = `DELETE FROM mm.player WHERE espn_id = '${espn_player_id}';`;
+              //   var response = mysql_lib.mysql_query(`Player ${espn_player_id} deleted`, query_string)
+              //   resolve();
+              // }
+              var query_string = `UPDATE mm.player SET jersey = '${jersey}', position = '${position}', class = '${class1}' WHERE espn_id = '${espn_player_id}';`;
+              var response = mysql_lib.mysql_query(`Player ${espn_player_id} info updated`, query_string)
+              resolve();
+          } else {
+            // This is really bad, but works. circular reference. Unsure why they fall out the first time.
+            console.log("DIDN'T WORK" + espn_player_id);
+            scrape_player_info(espn_player_id);
+          }
+
+            })
+    })
+}
+
 function scrape_teams_before(){
     new Promise((resolve, reject) => {
         request('http://www.espn.com/mens-college-basketball/bracketology', function (error, resp, html) {
@@ -170,6 +251,8 @@ function scrape_team_mascots(team_espn_id){
                 var response = await mysql_lib.mysql_query_param(`Team ${team_name} mascot ${mascot} updated`, query_string, [team_name,mascot])
               }
             } else {
+
+            // This is really bad, but works. circular reference. Unsure why they fall out the first time.
               console.log("DIDN'T WORK" + team_espn_id);
               scrape_team_mascots(team_espn_id);
             }
@@ -182,12 +265,13 @@ function add_players(team_id){
     new Promise((resolve, reject) => {
         request(`http://www.espn.com/mens-college-basketball/team/stats/_/id/${team_id}`, function (error, resp, html) {
             let $ = cheerio.load(html);
-            var min_scoring_avg = 8.0;
+            var min_scoring_avg = 0.0;
             var number_of_players = $('table.Table2__table__wrapper tbody tr td table tbody').first().find('tr').length -1;
             $('table.Table2__table__wrapper tbody tr td table tbody').first().find('tr').each(async function (index, element) {
               if (index == number_of_players) {
                 resolve();
               } else {
+                // Cheerio uses same syntax as jquery if you need to test in browser with dev tools.
                 var data_idx = $(element).attr('data-idx');
                 var full_name = $(element).find('td span a').text();
                 var espn_id = $(element).find('td span a').attr('href').split('/').slice(-1)[0];
@@ -218,5 +302,6 @@ module.exports = {
     scrape_teams,
     scrape_team_mascots,
     scrape_teams_before,
-    add_players
+    add_players,
+    update_player_info
 };
