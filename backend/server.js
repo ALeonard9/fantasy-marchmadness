@@ -136,8 +136,16 @@ app.get('/add_players/:id', async (req, res) => {
   var response = await scraper.add_players(req.params.id);
     res.send(JSON.stringify(response));
 });
+app.get('/scrape_schedule/:id', async (req, res) => {
+  var response = await scraper.scrape_schedule(req.params.id);
+    res.send(JSON.stringify(response));
+});
 app.get('/scrape_players', async (req, res) => {
     var response = await scraper.scrape_players();
+    res.send(JSON.stringify(response));
+});
+app.get('/scrape_players/:id', async (req, res) => {
+    var response = await scraper.scrape_players(req.params.id);
     res.send(JSON.stringify(response));
 });
 app.get('/update_player_info', async (req, res) => {

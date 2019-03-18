@@ -86,12 +86,17 @@ function check_gameover(game_id) {
     return (p5)
 }
 
-function scrape_players(){
+function scrape_players(team_id){
     return new Promise(async function (resolve, reject) {
+      if(team_id){
+        var response = await mysql_lib.mysql_query("Team espn_ids", `SELECT espn_id FROM mm.team WHERE id = ${team_id}`)
+      } else {
         var response = await mysql_lib.mysql_query("Team espn_ids", `SELECT espn_id FROM mm.team`)
-        for (var i = 0, length = response.length; i < length; i++) {
-          add_players(response[i]['espn_id'])
-        }
+      }
+      for (var i = 0, length = response.length; i < length; i++) {
+        add_players(response[i]['espn_id'])
+        resolve()
+      }
     })
 }
 
@@ -184,13 +189,13 @@ function scrape_teams_before(){
                 var preregion = $(element).children('h3,b').text();
                 var region = preregion.substr(0, preregion.indexOf("(") -1)
                 $(element).find('a').each(async function (index2, element2){
-                    var rank = $(element2).siblings('span.rank').text();
-                    if (rank.length > 2){
-                        rank = $(element2).siblings('span.rank').text().substring(0,2);
+                    var seed = $(element2).siblings('span.rank').text();
+                    if (seed.length > 2){
+                        seed = $(element2).siblings('span.rank').text().substring(0,2);
                     }
                     var espn_id = $(element2).attr('href').split('/').slice(-2)[0];
                     var team_name = $(element2).text();
-                    var query_string = "INSERT INTO `mm`.`team` (`school`, `espn_id`, `seed`, `region`) VALUES (?, '" + espn_id + "', '" + rank + "', '" + region + "');";
+                    var query_string = "INSERT INTO `mm`.`team` (`school`, `espn_id`, `seed`, `region`) VALUES (?, '" + espn_id + "', '" + seed + "', '" + region + "');";
                     var response = await mysql_lib.mysql_query_param(`Team ${team_name} added`, query_string, [team_name])
                     scrape_team_mascots(espn_id);
                     resolve();
@@ -208,16 +213,20 @@ function scrape_teams(){
             $('.region').each(async function (index, element){
                 var region = $(element).children('.regtitle').text();
                 $(element).find('dl').each(async function (index2, element2){
+                    var seed = $(element2).text().split(' ').slice(0)[0];
+                    var x = 0;
                     $(element2).find('a').each(async function (index3, element3){
                         var team_name = $(element3).attr('title');
                         if (team_name === undefined){
-                            return
+                            team_name = $(element3).text();
                         }
                         var raw_url = $(element3).attr('href').split('/');
                         var espn_id = raw_url[ raw_url.length -2 ];
-                        // TODO Grab RANK, scrape game
-
-                        var query_string = "INSERT INTO `mm`.`team` (`school`, `espn_id`, `region`) VALUES (?, '" + espn_id + "', '" + region + "');";
+                        if (x == 1) {
+                          seed = 17 - seed;
+                        }
+                        x = x +1;
+                        var query_string = "INSERT INTO `mm`.`team` (`school`, `espn_id`, `region`, `seed`) VALUES (?, '" + espn_id + "', '" + region + "', '" + seed + "');";
                         var response = await mysql_lib.mysql_query_param(`Team ${team_name} added`, query_string, [team_name])
                         scrape_team_mascots(espn_id);
                         resolve();
@@ -289,6 +298,45 @@ function add_players(team_id){
     })
 }
 
+function scrape_schedule(date_var){
+    new Promise((resolve, reject) => {
+        request(`http://www.espn.com/mens-college-basketball/schedule/_/date/${date_var}`, function (error, resp, html) {
+            let $ = cheerio.load(html);
+            $('tbody').first().find('tr').each(async function (index, element){
+              var visitor_id = $(element).first().find('a').attr('href').split('/').slice(-2)[0]
+              var home_id = $(element).find('td:nth-child(2)').find('a').attr('href').split('/').slice(-2)[0]
+              var espn_id = $(element).find('td:nth-child(3)').find('a').attr('href').split('=').slice(-1)[0]
+              var round = '';
+              switch (true) {
+                case date_var < 20190323:
+                  round = '1';
+                  break;
+                case date_var >= 20190323 && date_var < 20190324:
+                  round = '2';
+                  break;
+                case date_var >= 20190328 && date_var < 20190329:
+                  round = '3';
+                  break;
+                case date_var >= 20190330 && date_var < 20190331:
+                  round = '4';
+                  break;
+                case date_var == 20190406:
+                  round = '5';
+                  break;
+                case date_var == 20190408:
+                  round = '6';
+                  break;
+              }
+
+              var query_string = "INSERT INTO `mm`.`game` (`home_team_id`, `away_team_id`, `espn_id`, `round`, `active`) VALUES ('" + home_id + "', '" + visitor_id + "', '" + espn_id + "', '" + round + "', '1');";
+              var response = await mysql_lib.mysql_query(`Game ${espn_id} added for round ${round}`, query_string)
+              resolve();
+            })
+
+        })
+    })
+}
+
 function rejected(result) {
     console.log(result);
 }
@@ -303,5 +351,6 @@ module.exports = {
     scrape_team_mascots,
     scrape_teams_before,
     add_players,
-    update_player_info
+    update_player_info,
+    scrape_schedule
 };

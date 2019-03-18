@@ -87,4 +87,5 @@ SELECT id, name, display_name, draft_position FROM mm.owner o ORDER BY RAND();
 SET SQL_SAFE_UPDATES = 0;
 set global max_connections = 2000;
 
-ALTER USER root IDENTIFIED WITH mysql_native_password BY 'abc123';
+-- Only use for local development
+-- ALTER USER root IDENTIFIED WITH mysql_native_password BY 'abc123';
