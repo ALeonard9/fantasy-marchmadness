@@ -125,7 +125,7 @@ app.get('/scoreboard', async (req, res) => {
     res.send(JSON.stringify(response));
 });
 app.get('/playerboard', async (req, res) => {
-    var response = await mysql_lib.mysql_query("Playerboard", "SELECT o.display_name, o.name, o.id, p.full_name, p.espn_id, p.scoring_average, p.round1, p.round2, p.round3, p.round4, p.round5, p.round6, (round1 + round2 + round3 + round4 + round5 + round6) as total, t.school, t.mascot, t.id as team_id, t.seed, t.region, t. eliminated FROM mm.team t, mm.player p LEFT JOIN mm.owner o ON p.owner_id = o.id WHERE  t.id = p.team_id ORDER BY seed, school, scoring_average desc;")
+    var response = await mysql_lib.mysql_query("Playerboard", "SELECT o.display_name, o.name, o.id, p.full_name, p.espn_id, p.scoring_average, p.position, p.class, p.jersey, p.round1, p.round2, p.round3, p.round4, p.round5, p.round6, (round1 + round2 + round3 + round4 + round5 + round6) as total, t.school, t.mascot, t.id as team_id, t.seed, t.region, t. eliminated FROM mm.team t, mm.player p LEFT JOIN mm.owner o ON p.owner_id = o.id WHERE  t.id = p.team_id ORDER BY seed, school, scoring_average desc;")
     res.send(JSON.stringify(response));
 });
 app.get('/scrape_all', async (req, res) => {
