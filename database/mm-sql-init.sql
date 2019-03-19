@@ -38,6 +38,7 @@ CREATE TABLE `mm`.`team` (
   `owner_id` INT NULL,
   `team_id` INT NULL,
   `jersey` INT NULL,
+  `drafted_round` INT NULL,
   `scoring_average` FLOAT NULL,
   `projected_score` FLOAT NULL,
   `position` VARCHAR(45) NULL,

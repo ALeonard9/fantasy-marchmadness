@@ -140,6 +140,14 @@ app.get('/scrape_schedule/:id', async (req, res) => {
   var response = await scraper.scrape_schedule(req.params.id);
     res.send(JSON.stringify(response));
 });
+app.get('/add_projections', async (req, res) => {
+    var response = await scraper.add_projections();
+    res.send(JSON.stringify(response));
+});
+app.get('/add_projections/:id', async (req, res) => {
+    var response = await scraper.add_projections(req.params.id);
+    res.send(JSON.stringify(response));
+});
 app.get('/scrape_players', async (req, res) => {
     var response = await scraper.scrape_players();
     res.send(JSON.stringify(response));
