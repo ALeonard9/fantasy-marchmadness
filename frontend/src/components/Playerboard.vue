@@ -38,7 +38,7 @@
         >
           <template slot="items" slot-scope="props">
             <td  v-bind:class="{ drafted: props.item.drafted }"><router-link :to="{ name: 'Owner', params: {id: props.item.id } }">{{ props.item.name }}</router-link></td>
-            <td class="text-xs-left" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.full_name }}</td>
+            <td class="text-xs-left" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">#{{ props.item.jersey }} {{ props.item.full_name }}</td>
             <td class="text-xs-left " v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.school }}</td>
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.region }}</td>
@@ -167,6 +167,9 @@
                 school: `${element.school} ${element.mascot}`,
                 seed: element.seed,
                 region: element.region,
+                jersey: element.jersey,
+                position: element.position,
+                class: element.class,
                 eliminated: eliminated_player,
                 round1: element.round1,
                 round2: element.round2,
