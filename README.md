@@ -32,3 +32,6 @@ sudo service docker start
 ## Useful commands
 Bring up just the database:
 ```docker-compose up -d mysql-dev```
+
+SQL, drafting:
+UPDATE `mm`.`player` SET `owner_id` = (select id from mm.owner where name = 'Adam'), `drafted_round` = '1' WHERE (`id` = '2');

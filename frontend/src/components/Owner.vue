@@ -22,7 +22,7 @@
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.full_name }}</td>
+            <td class="text-xs-left" v-bind:class="{ eliminated: props.item.eliminated }">#{{ props.item.jersey }} {{ props.item.full_name }}</td>
             <td class="text-xs-left hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.school }}</td>
             <td class="text-xs-left hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.scoring_average }}</td>
@@ -144,6 +144,7 @@
                 team_id: element.team_id,
                 seed: element.seed,
                 region: element.region,
+                jersey: element.jersey,
                 eliminated: eliminated_player,
                 round1: element.round1,
                 round2: element.round2,
