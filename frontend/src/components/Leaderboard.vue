@@ -16,10 +16,10 @@
             <td class="text-xs-center hidden-xs-only">{{ props.item.remaining }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
+            <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
             <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round6 }}</td> -->
             <td class="text-xs-center">{{ props.item.total }}</td>
           </template>
         </v-data-table>
@@ -52,10 +52,10 @@
           { text: 'Players Remaining', value: 'remaining', class: 'hidden-xs-only' },
           { text: 'First round', value: 'round1', class: 'hidden-xs-only' },
           { text: 'Second round', value: 'round2', class: 'hidden-xs-only' },
-          { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only' },
-          { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only' },
-          { text: 'Final Four', value: 'round5', class: 'hidden-xs-only' },
-          { text: 'Championship', value: 'round6', class: 'hidden-xs-only' },
+          // { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only' },
+          // { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only' },
+          // { text: 'Final Four', value: 'round5', class: 'hidden-xs-only' },
+          // { text: 'Championship', value: 'round6', class: 'hidden-xs-only' },
           { text: 'Total', value: 'total' }
         ],
         items: []
