@@ -168,7 +168,6 @@ function add_player_projections(id, avg, seed){
     break;
   }
   projection = avg_games * avg;
-  console.log(id, avg, seed, avg_games, projection);
   var query_string = "UPDATE `mm`.`player` SET `projected_score` = '" + projection +"' WHERE (`id` = '" + id +"')";
   var response = mysql_lib.mysql_query(`Updating player ${id} to have projection ${projection} `, query_string)
 }
