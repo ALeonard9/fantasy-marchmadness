@@ -99,6 +99,79 @@ function scrape_players(team_id){
       }
     })
 }
+function add_projections(player_id){
+    return new Promise(async function (resolve, reject) {
+      if(player_id){
+        var response = await mysql_lib.mysql_query("Team espn_ids", `SELECT p.id, p.scoring_average, t.seed FROM mm.player p, mm.team t WHERE p.team_id = t.id AND p.id = ${player_id}`)
+      } else {
+        var response = await mysql_lib.mysql_query("Team espn_ids", `SELECT p.id, p.scoring_average, t.seed FROM mm.player p, mm.team t WHERE p.team_id = t.id and projected_score IS NULL`)
+      }
+      for (var i = 0, length = response.length; i < length; i++) {
+        add_player_projections(response[i]['id'], response[i]['scoring_average'], response[i]['seed'])
+        resolve()
+      }
+    })
+}
+
+function add_player_projections(id, avg, seed){
+  var avg_games = '0';
+  var projection = '0.0';
+  switch (true) {
+    case seed == 1:
+      avg_games = '5';
+      break;
+    case seed == 2:
+      avg_games = '4.5';
+      break;
+    case seed == 3:
+      avg_games = '4';
+      break;
+    case seed == 4:
+      avg_games = '2.8';
+      break;
+    case seed == 5:
+      avg_games = '2.5';
+      break;
+    case seed == 6:
+      avg_games = '2.3';
+      break;
+    case seed == 7:
+      avg_games = '2';
+      break;
+    case seed == 8:
+      avg_games = '1.7';
+      break;
+    case seed == 9:
+      avg_games = '1.5';
+      break;
+    case seed == 10:
+      avg_games = '1.4';
+      break;
+    case seed == 11:
+      avg_games = '1.3';
+      break;
+    case seed == 12:
+      avg_games = '1.25';
+      break;
+    case seed == 13:
+      avg_games = '1.2';
+      break;
+    case seed == 14:
+      avg_games = '1.1';
+      break;
+    case seed == 15:
+      avg_games = '1';
+      break;
+    case seed == 16:
+      avg_games = '1';
+      break;
+    break;
+  }
+  projection = avg_games * avg;
+  console.log(id, avg, seed, avg_games, projection);
+  var query_string = "UPDATE `mm`.`player` SET `projected_score` = '" + projection +"' WHERE (`id` = '" + id +"')";
+  var response = mysql_lib.mysql_query(`Updating player ${id} to have projection ${projection} `, query_string)
+}
 
 function update_player_info(player_id) {
   return new Promise(async function (resolve, reject) {
@@ -352,5 +425,6 @@ module.exports = {
     scrape_teams_before,
     add_players,
     update_player_info,
-    scrape_schedule
+    scrape_schedule,
+    add_projections
 };
