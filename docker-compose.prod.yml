@@ -20,5 +20,4 @@ services:
     ports:
       - "80:80"
     environment:
-      PORT: 80
       VUE_APP_BACKEND_URL: "http://mm.aleonard.us:8080"
