@@ -90,7 +90,7 @@
           { text: 'School', value: 'school'},
           { text: 'Seed', value: 'seed', class: 'hidden-xs-only' },
           { text: 'Region', value: 'region', class: 'hidden-xs-only' },
-          { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'}
+          { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'},
           { text: 'Projection', value: 'projected_score', class: 'hidden-xs-only'}
           // { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
           // { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
