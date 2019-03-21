@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "95ad80e2-a679-499c-9b7f-6e6277ce14d1",
+		"name": "MM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Connection",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Owners",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/owners",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"owners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Owner",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/owners/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"owners",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RANDOMIZE Draft order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/draft/randomizer",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"draft",
+						"randomizer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Draft order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[    {\n        \"id\": 1,\n        \"name\": \"Adam\",\n        \"display_name\": \"ALEO\",\n        \"draft_position\": null\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Josh\",\n        \"display_name\": \"JFO\",\n        \"draft_position\": null\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Ryan\",\n        \"display_name\": \"RKO\",\n        \"draft_position\": null\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Cody\",\n        \"display_name\": \"CAU\",\n        \"draft_position\": null\n    }]"
+				},
+				"url": {
+					"raw": "{{url}}/draft",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"draft"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Teams before selection sunday",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/scrape_teams",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scrape_teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Mascots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/scrape_team_mascots/43",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scrape_team_mascots",
+						"43"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Teams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/teams",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Players",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/scrape_players",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scrape_players"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Players from team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/add_players/150",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"add_players",
+						"150"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/scrape_schedule/20190317",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scrape_schedule",
+						"20190317"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Player info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/update_player_info",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"update_player_info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Teams after ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/scrape_teams",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scrape_teams"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
