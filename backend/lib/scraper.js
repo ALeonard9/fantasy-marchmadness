@@ -8,9 +8,9 @@ function scrape(game_param) {
         var round = '';
         var query_string = '';
         if(game_param){
-            var response = await mysql_lib.mysql_query("Games", `SELECT home_team_id, away_team_id, g.espn_id as game_espn_id, round, p.id as player_id, full_name, p.espn_id as player_espn_id, p.team_id  FROM mm.game g, mm.player p WHERE active = 1 AND (p.team_id = home_team_id OR p.team_id = away_team_id) AND g.espn_id = ${game_param} AND p.owner_id IS NOT NULL`)
+            var response = await mysql_lib.mysql_query("Games", `SELECT home_team_id, away_team_id, g.espn_id as game_espn_id, round, p.id as player_id, full_name, p.espn_id as player_espn_id, p.team_id  FROM mm.game g, mm.player p WHERE active = 1 AND (p.team_id = (select id from mm.team where espn_id = home_team_id) OR p.team_id = (select id from mm.team where espn_id = away_team_id)) AND g.espn_id = ${game_param} AND p.owner_id IS NOT NULL`)
         } else {
-            var response = await mysql_lib.mysql_query("Games", "SELECT home_team_id, away_team_id, g.espn_id as game_espn_id, round, p.id as player_id, full_name, p.espn_id as player_espn_id, p.team_id  FROM mm.game g, mm.player p WHERE active = 1 AND (p.team_id = home_team_id OR p.team_id = away_team_id) AND p.owner_id IS NOT NULL")
+            var response = await mysql_lib.mysql_query("Games", "SELECT home_team_id, away_team_id, g.espn_id as game_espn_id, round, p.id as player_id, full_name, p.espn_id as player_espn_id, p.team_id  FROM mm.game g, mm.player p WHERE active = 1 AND (p.team_id = (select id from mm.team where espn_id = home_team_id) OR p.team_id = (select id from mm.team where espn_id = away_team_id)) AND p.owner_id IS NOT NULL")
         }
         if (response.length < 1) {
             Promise.reject(new Error("No active games.")).then(resolved, rejected);
