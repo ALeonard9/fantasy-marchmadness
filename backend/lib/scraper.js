@@ -383,13 +383,13 @@ function scrape_schedule(date_var){
                 case date_var < 20190323:
                   round = '1';
                   break;
-                case date_var >= 20190323 && date_var < 20190324:
+                case date_var >= 20190323 && date_var <= 20190324:
                   round = '2';
                   break;
-                case date_var >= 20190328 && date_var < 20190329:
+                case date_var >= 20190328 && date_var <= 20190329:
                   round = '3';
                   break;
-                case date_var >= 20190330 && date_var < 20190331:
+                case date_var >= 20190330 && date_var <= 20190331:
                   round = '4';
                   break;
                 case date_var == 20190406:
