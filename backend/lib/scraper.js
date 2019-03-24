@@ -69,6 +69,52 @@ function game_scrape(game_id, round, player_id) {
   return (p4);
 }
 
+function update_player_draft_position(player_param) {
+  return new Promise(async function(resolve, reject) {
+    var response = '';
+    if (player_param){
+      response = await mysql_lib.mysql_query(`Player ${player_param} query for draft`, `SELECT p.id, p.drafted_round, o.draft_position, (select count(DISTINCT owner_id) from mm.player) as num_of_owners FROM mm.player p, mm.owner o where p.owner_id = o.id and p.owner_id is not null and p.drafted_round is not null and o.draft_position is not null AND p.id = ${player_param};`);
+    } else {
+      response = await mysql_lib.mysql_query('All players query for draft', 'SELECT p.id, p.drafted_round, o.draft_position, (select count(DISTINCT owner_id) from mm.player) as num_of_owners FROM mm.player p, mm.owner o where p.owner_id = o.id and p.owner_id is not null and p.drafted_round is not null and o.draft_position is not null;');
+    }
+    if (response.length < 1) {
+      Promise.reject(new Error('No players drafted.')).then(resolved, rejected);
+      return;
+    }
+    let p1 = new Promise((resolve2, reject2) => {
+      for (var i = 0, length = response.length; i < length; i++) {
+        var row = response[i];
+        update_player_draft_position_single(row['id'], row['drafted_round'], row['draft_position'], row['num_of_owners']);
+        if (i === length - 1) {
+          resolve2();
+        }
+      }
+    });
+    resolve();
+    return (p1);
+  });
+}
+
+function update_player_draft_position_single(player_id, drafted_round, draft_position, num_of_owners) {
+  let p4 = new Promise((resolve4, reject4) => {
+    let drafted_position = '';
+    // If oddeven is 0, it is even. If 1, it is odd. Used for snake draft to determine position.
+    let oddeven = drafted_round % 2;
+    let adder = '';
+    if (oddeven === 1){
+      adder = draft_position;
+    } else if (oddeven === 0) {
+      adder = num_of_owners - draft_position + 1;
+    } else {
+      reject4('Drafted round not picking up.');
+    }
+    drafted_position = ((drafted_round - 1) * num_of_owners) + adder;
+    mysql_lib.mysql_query(`Updating player ${player_id} to drafted_position ${drafted_position} `, `UPDATE mm.player SET drafted_position = '${drafted_position}' WHERE (id = '${player_id}');`);
+    resolve4();
+  });
+  return (p4);
+}
+
 function check_gameover(game_id) {
   let p5 = new Promise((resolve5, reject5) => {
     request(`http://www.espn.com/mens-college-basketball/boxscore?gameId=${game_id}`, function(error, resp, html) {
@@ -453,4 +499,5 @@ module.exports = {
   update_player_info,
   scrape_schedule,
   add_projections,
+  update_player_draft_position,
 };
