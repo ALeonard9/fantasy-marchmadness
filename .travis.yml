@@ -1,6 +1,10 @@
+--- 
 language: node_js
-node_js:
- - "node"
-
- script:
-  - npm run lint
+node_js: 
+  - "6"
+  - "8"
+  - "9"
+  - "10"
+  - "11"
+script: 
+  - "npm run lint"
