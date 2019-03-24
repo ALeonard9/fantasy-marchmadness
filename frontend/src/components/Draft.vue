@@ -41,8 +41,8 @@
               <td><router-link :to="{ name: 'Owner', params: {id: props.item.id } }">{{ props.item.name }}</router-link></td>
               <td class="text-xs-left" v-bind:class="{  eliminated: props.item.eliminated }">#{{ props.item.jersey }} {{ props.item.full_name }}</td>
               <td class="text-xs-left " v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.school }}</td>
-              <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
-              <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.region }}</td>
+              <!-- <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
+              <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.region }}</td> -->
               <td class="text-xs-left hidden-xs-only">{{ props.item.drafted_round }}</td>
               <td class="text-xs-left">{{ props.item.drafted_position }}</td>
               <td class="text-xs-center hidden-xs-only">{{ props.item.scoring_average }}</td>
@@ -151,11 +151,11 @@
             this.drafted_players = [];
             this.drafted_player_pagination = {'sortBy': 'drafted_position', 'ascending': true, 'rowsPerPage': -1};
             this.drafted_player_headers = [
-              { text: 'Owner', sortable: false, align: 'left', value: 'owner'},
+              { text: 'Owner', align: 'left', value: 'owner'},
               { text: 'Player', value: 'full_name' },
               { text: 'School', value: 'school', class: 'hidden-xs-only'},
-              { text: 'Seed', value: 'seed', class: 'hidden-xs-only' },
-              { text: 'Region', value: 'region', class: 'hidden-xs-only' },
+              // { text: 'Seed', value: 'seed', class: 'hidden-xs-only' },
+              // { text: 'Region', value: 'region', class: 'hidden-xs-only' },
               { text: 'Round', value: 'drafted_round', class: 'hidden-xs-only'},
               { text: 'Pick', value: 'drafted_position'},
               { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'},
