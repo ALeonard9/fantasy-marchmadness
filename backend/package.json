@@ -1,13 +1,15 @@
 {
   "name": "mm_backend",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Backend to the Fantasy March Madness app",
   "author": "adamleonard9@gmail.com",
   "repository": "https://github.com/ALeonard9/fantasy-marchmadness/tree/master/backend",
   "license": "GPL-3.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint": "node_modules/.bin/eslint --ignore-path .gitignore .",
+    "pretest": "node_modules/.bin/eslint --ignore-path .gitignore ."
   },
   "dependencies": {
     "async": "^2.6.2",
@@ -23,6 +25,8 @@
     "winston": "^2.4.4"
   },
   "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-strongloop": "^2.1.0",
     "nodemon": "^1.18.10"
   }
 }
