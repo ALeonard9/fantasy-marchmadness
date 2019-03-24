@@ -103,7 +103,7 @@ app.post('/draft', async(req, res) => {
     var keys = Object.keys(req.body);
     for (var i = 0, length = keys.length; i < length; i++){
       query_string += "UPDATE `mm`.`owner` SET `draft_position` = '" + keys[i] + "' WHERE `id` = '" + req.body[keys[i]] + "'; ";
-      if (i === keys.length - 1){
+      if (i == keys.length - 1){
         resolve();
       }
     }
