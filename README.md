@@ -1,4 +1,5 @@
-# Draft
+[![Build Status](https://travis-ci.com/ALeonard9/fantasy-marchmadness.svg?branch=master)](https://travis-ci.com/ALeonard9/fantasy-marchmadness)
+
 # fantasy-marchmadness
 Individual player point tracker for March Madness. Challenge your friends to a fantasy sports style league for college basketball.
 
