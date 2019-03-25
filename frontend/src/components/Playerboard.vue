@@ -168,6 +168,8 @@
                 seed: element.seed,
                 region: element.region,
                 jersey: element.jersey,
+                draft_pick: element.draft_pick,
+                drafted_round: element.drafted_round,
                 position: element.position,
                 class: element.class,
                 eliminated: eliminated_player,
