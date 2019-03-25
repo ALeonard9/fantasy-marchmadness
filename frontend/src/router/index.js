@@ -4,8 +4,8 @@ import Leaderboard from '@/components/Leaderboard'
 import Playerboard from '@/components/Playerboard'
 import Draft from '@/components/Draft'
 import Owner from '@/components/Owner'
-
 Vue.use(Router)
+
 
 export default new Router({
   routes: [

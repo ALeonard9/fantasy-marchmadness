@@ -3,68 +3,25 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <h1>Player Data</h1>
-
-          <v-card>
-          <v-card-title>
-            <div class="text-xs-center pt-2">
-              <v-btn v-if="!score_filter" color="primary" @click.native="score_filter_toggle">All Players</v-btn>
-              <v-btn v-if="score_filter" color="primary" @click.native="score_filter_toggle">10+ PPG Scorers</v-btn>
-              <v-btn v-if="draft_filter === 0" color="primary" @click.native="draft_filter_toggle">All Players</v-btn>
-              <v-btn v-if="draft_filter === 1" color="primary" @click.native="draft_filter_toggle">Drafted</v-btn>
-              <v-btn v-if="draft_filter === 2" color="primary" @click.native="draft_filter_toggle">Undrafted</v-btn>
-              <download-csv
-                  class = "v-btn theme--light primary"
-                  name = "fantasymarchmadness2019.csv"
-                  :data   = "items">
-                  Download
-              </download-csv>
-            </div>
-            <v-spacer></v-spacer>
-            <v-text-field
-              append-icon="search"
-              label="Search"
-              single-line
-              hide-details
-              v-model="search"
-            ></v-text-field>
-          </v-card-title>
-        <v-data-table
-          :search="search"
-          :headers="headers"
-          :items="items"
-          :loading="loading"
-          hide-actions
-          class="elevation-1"
-        >
-          <template slot="items" slot-scope="props">
-            <td  v-bind:class="{ drafted: props.item.drafted }"><router-link :to="{ name: 'Owner', params: {id: props.item.id } }">{{ props.item.name }}</router-link></td>
-            <td class="text-xs-left" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">#{{ props.item.jersey }} {{ props.item.full_name }}</td>
-            <td class="text-xs-left " v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.school }}</td>
-            <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
-            <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.region }}</td>
-            <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
-            <!-- <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.projected_score }}</td> -->
-
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
-            <!-- <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
-            <td class="text-xs-center">{{ props.item.round6 }}</td> -->
-            <td class="text-xs-center">{{ props.item.total }}</td>
-          </template>
-
-          <v-alert slot="no-results" :value="true" color="error" icon="warning">
-            Your search for "{{ search }}" found no results.
-          </v-alert>
-        </v-data-table>
-        </v-card>
+        <v-btn color="primary" @click.native="testSomething">Load Data</v-btn>
+      <div>
+        <vue-good-table :columns="columns" :rows="playerDataRows"  @on-row-click="onRowClick" 
+          :search-options="{enabled: true, trigger: 'enter',placeholder: 'What are you looking for?'}" 
+          :pagination-options="{enabled:true, mode:'pages'}" theme="black-rhino"
+        />
+      </div>
+        
       </v-layout>
     </v-slide-y-transition>
   </v-container>
 </template>
 
 <script>
+  import { VueGoodTable } from 'vue-good-table'
+  import 'vue-good-table/dist/vue-good-table.css'
+  
+  import { mapGetters, mapActions } from 'vuex'
+
   var defaultHeaders = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -77,6 +34,9 @@
     mode: 'cors',
   };
   export default {
+    components: {
+      VueGoodTable
+    },
     data () {
       return {
         search: '',
@@ -100,10 +60,41 @@
           // { text: 'Championship', value: 'round6'},
           { text: 'Total', value: 'total'}
         ],
-        items: []
+        items: [],
+
+        columns: [
+          {
+            label: 'Owner',
+            field: 'owner'
+          },
+          {
+            label: 'Player',
+            field: 'full_name'
+          },
+          {
+            label: 'School',
+            field: 'school'
+          },
+          {
+            label: 'Seed',
+            field: 'seed',
+            type: 'number',
+          },
+          {
+            label: 'Region',
+            field: 'region'
+          },
+          {
+            label: 'Avg. PPG',
+            field: 'scoring_average',
+            type: 'number',
+          },
+        ],
+        playerDataRows: []
       }
     },
     created: function () {
+      this.loadPlayerStats()
     },
     mounted: function () {
       if(window.innerWidth < 1100){
@@ -120,14 +111,35 @@
           }
         });
       })
-      this.loadPlayerboard()
+      // this.loadPlayerboard()
       this.interval1 = setInterval(function(){
-        this.loadPlayerboard()
+        // this.loadPlayerboard()
       }.bind(this), 180000);
     },
     methods: {
+      ...mapActions([
+        'sendDraftSelectionPost'
+      ]),
+      testSomething () {
+        this.sendDraftSelectionPost('test')
+      },
+      onRowClick (params) {
+        this.sendDraftSelectionPost(params.row)
+        // console.log(params.row)
+      },
+      loadPlayerStats() {
+        fetch(`http://localhost:8080/playerboard`, defaultOptions)
+          .then((response) => {
+            return response.json()
+            .then((playerInfo) => {
+              playerInfo.forEach(player => {
+                this.playerDataRows.push(player)
+              })
+            })
+          })
+      },
       loadPlayerboard(){
-        fetch(`${process.env.VUE_APP_BACKEND_URL}/playerboard`, defaultOptions)
+        fetch(`http://localhost:8080/playerboard`, defaultOptions)
           .then((response) => {
             return response.json();
           })
@@ -200,6 +212,11 @@
   }
 </script>
 
+<style>
+.vgt-inner-wrap {
+  width: 70em;
+}
+</style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {

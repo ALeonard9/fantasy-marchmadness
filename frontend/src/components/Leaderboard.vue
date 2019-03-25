@@ -85,7 +85,7 @@
     },
     methods: {
       loadLeaderboard(){
-        fetch(`${process.env.VUE_APP_BACKEND_URL}/scoreboard`, defaultOptions)
+        fetch(`http://localhost:8080/scoreboard`, defaultOptions)
           .then((response) => {
             return response.json();
           })

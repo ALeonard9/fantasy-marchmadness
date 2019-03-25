@@ -73,6 +73,16 @@ CREATE TABLE `mm`.`game` (
   `active` INT NULL DEFAULT 0,
   PRIMARY KEY (`id`));
 
+CREATE TABLE `mm`.`drafted` (
+  `group_id` INT NOT NULL,
+  `owner_id` INT NOT NULL,
+  `player_id` INT NOT NULL,
+  `draft_round` INT NOT NULL,
+  PRIMARY KEY(`group_id`,`owner_id`,`player_id`),
+  FOREIGN KEY (`owner_id`) REFERENCES `mm`.`owner`(`id`),
+  FOREIGN KEY (`player_id`) REFERENCES `mm`.`player`(`id`)
+);
+
 USE `mm`;
 CREATE  OR REPLACE VIEW `scoreboard` AS
 SELECT o.name, o.display_name, o.id, count(case when t.eliminated = 0 then 1 else null end) as players_remaining, sum(round1) as round1, sum(round2) as round2, sum(round3) as round3, sum(round4) as round4, sum(round5) as round5, sum(round6) as round6, (sum(round1) + sum(round2) + sum(round3) + sum(round4) + sum(round5) + sum(round6)) as 'total'  FROM mm.owner o, mm.player p, mm.team t WHERE p.owner_id = o.id AND p.team_id = t.id group by o.id order by total desc;

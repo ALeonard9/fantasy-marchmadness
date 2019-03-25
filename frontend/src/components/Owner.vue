@@ -104,7 +104,7 @@
     },
     methods: {
       getOwners(){
-        fetch(`${process.env.VUE_APP_BACKEND_URL}/owners`, defaultOptions)
+        fetch(`http://localhost:8080/owners`, defaultOptions)
           .then((response) => {
             return response.json();
           })
@@ -119,7 +119,7 @@
           })
       },
       loadOwner(){
-        fetch(`${process.env.VUE_APP_BACKEND_URL}/everything/owner/${this.owner_id}`, defaultOptions)
+        fetch(`http://localhost:8080/everything/owner/${this.owner_id}`, defaultOptions)
           .then((response) => {
             return response.json();
           })

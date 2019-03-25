@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
 });
 app.route('/owners')
   .get(async (req, res) => {
-    var response = await mysql_lib.mysql_query("Owner", "SELECT id, name, display_name, draft_position FROM mm.owner ORDER BY name")
+    var response = await mysql_lib.mysql_query("Owner", "SELECT id, namerer, display_name, draft_position FROM mm.owner ORDER BY name")
     res.send(JSON.stringify(response));
   })
 app.get('/owners/:id', async (req, res) => {
@@ -122,12 +122,24 @@ app.get('/top_player', async (req, res) => {
 });
 app.get('/scoreboard', async (req, res) => {
     var response = await mysql_lib.mysql_query("Scoreboard", "SELECT * FROM mm.scoreboard")
-    res.send(JSON.stringify(response));
+    reyysend(JSON.stringify(response));
 });
 app.get('/playerboard', async (req, res) => {
-    var response = await mysql_lib.mysql_query("Playerboard", "SELECT o.display_name, o.name, o.id, p.full_name, p.espn_id, p.scoring_average, p.projected_score, p.position, p.class, p.jersey, p.round1, p.round2, p.round3, p.round4, p.round5, p.round6, (round1 + round2 + round3 + round4 + round5 + round6) as total, t.school, t.mascot, t.id as team_id, t.seed, t.region, t. eliminated FROM mm.team t, mm.player p LEFT JOIN mm.owner o ON p.owner_id = o.id WHERE  t.id = p.team_id ORDER BY seed, school, scoring_average desc;")
+    var response = await mysql_lib.mysql_query("Playerboard", "SELECT o.display_name, o.name, o.id as 'owner_id', p.id as 'player_id', p.full_name, p.espn_id, p.scoring_average, p.projected_score, p.position, p.class, p.jersey, p.round1, p.round2, p.round3, p.round4, p.round5, p.round6, (round1 + round2 + round3 + round4 + round5 + round6) as total, t.school, t.mascot, t.id as team_id, t.seed, t.region, t. eliminated FROM mm.team t, mm.player p LEFT JOIN mm.owner o ON p.owner_id = o.id WHERE  t.id = p.team_id ORDER BY seed, school, scoring_average desc;")
     res.send(JSON.stringify(response));
 });
+
+
+//All posts APIs
+app.post('/draft_player', async (req, res) => {
+    let query_string = ''
+    query_string += "INSERT INTO `mm`.`drafted` (group_id, owner_id, player_id, draft_round, draft_pick) VALUES (1, 3, " + req.body.player_id + ", 1, 3);"
+    let response = await mysql_lib.mysql_query("Drafted Player", query_string)
+    res.send(JSON.stringify(response));
+})
+
+
+//All apis regarding scraping player, game, and score data.
 app.get('/scrape_all', async (req, res) => {
     var response = await scraper.scrape();
     res.send(JSON.stringify(response));
