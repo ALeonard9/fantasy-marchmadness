@@ -97,7 +97,7 @@ function update_player_draft_position(player_param) {
 
 function update_player_draft_position_single(player_id, drafted_round, draft_position, num_of_owners) {
   let p4 = new Promise((resolve4, reject4) => {
-    let drafted_position = '';
+    let draft_pick = '';
     // If oddeven is 0, it is even. If 1, it is odd. Used for snake draft to determine position.
     let oddeven = drafted_round % 2;
     let adder = '';
@@ -108,8 +108,8 @@ function update_player_draft_position_single(player_id, drafted_round, draft_pos
     } else {
       reject4('Drafted round not picking up.');
     }
-    drafted_position = ((drafted_round - 1) * num_of_owners) + adder;
-    mysql_lib.mysql_query(`Updating player ${player_id} to drafted_position ${drafted_position} `, `UPDATE mm.player SET drafted_position = '${drafted_position}' WHERE (id = '${player_id}');`);
+    draft_pick = ((drafted_round - 1) * num_of_owners) + adder;
+    mysql_lib.mysql_query(`Updating player ${player_id} to draft_pick ${draft_pick} `, `UPDATE mm.player SET draft_pick = '${draft_pick}' WHERE (id = '${player_id}');`);
     resolve4();
   });
   return (p4);
