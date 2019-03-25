@@ -11,6 +11,62 @@
         />
       </div>
         
+
+          <!-- <v-card>
+          <v-card-title>
+            <div class="text-xs-center pt-2">
+              <v-btn v-if="!score_filter" color="primary" @click.native="score_filter_toggle">All Players</v-btn>
+              <v-btn v-if="score_filter" color="primary" @click.native="score_filter_toggle">10+ PPG Scorers</v-btn>
+              <v-btn v-if="draft_filter === 0" color="primary" @click.native="draft_filter_toggle">All Players</v-btn>
+              <v-btn v-if="draft_filter === 1" color="primary" @click.native="draft_filter_toggle">Drafted</v-btn>
+              <v-btn v-if="draft_filter === 2" color="primary" @click.native="draft_filter_toggle">Undrafted</v-btn>
+              <download-csv
+                  class = "v-btn theme--light primary"
+                  name = "fantasymarchmadness2019.csv"
+                  :data   = "items">
+                  Download
+              </download-csv>
+            </div>
+            <v-spacer></v-spacer>
+            <v-text-field
+              append-icon="search"
+              label="Search"
+              single-line
+              hide-details
+              v-model="search"
+            ></v-text-field>
+          </v-card-title>
+        <v-data-table
+          :search="search"
+          :headers="headers"
+          :items="items"
+          :loading="loading"
+          hide-actions
+          class="elevation-1"
+        >
+          <template slot="items" slot-scope="props">
+            <td  v-bind:class="{ drafted: props.item.drafted }"><router-link :to="{ name: 'Owner', params: {id: props.item.id } }">{{ props.item.name }}</router-link></td>
+            <td class="text-xs-left" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">#{{ props.item.jersey }} {{ props.item.full_name }}</td>
+            <td class="text-xs-left " v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.school }}</td>
+            <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
+            <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.region }}</td>
+            <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
+            <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.projected_score }}</td>
+
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
+            <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
+            <td class="text-xs-center">{{ props.item.round6 }}</td>
+            <td class="text-xs-center">{{ props.item.total }}</td>
+          </template>
+
+          <v-alert slot="no-results" :value="true" color="error" icon="warning">
+            Your search for "{{ search }}" found no results.
+          </v-alert>
+        </v-data-table>
+        </v-card> -->
       </v-layout>
     </v-slide-y-transition>
   </v-container>
@@ -54,8 +110,8 @@
           // { text: 'Projection', value: 'projected_score', class: 'hidden-xs-only'}
           { text: 'Round 1', value: 'round1', class: 'hidden-xs-only'},
           { text: 'Round 2', value: 'round2', class: 'hidden-xs-only'},
-          // { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
-          // { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
+          { text: 'Sweet Sixteen', value: 'round3', class: 'hidden-xs-only'},
+          { text: 'Elite Eight', value: 'round4', class: 'hidden-xs-only'},
           // { text: 'Final Four', value: 'round5', class: 'hidden-xs-only'},
           // { text: 'Championship', value: 'round6'},
           { text: 'Total', value: 'total'}
@@ -176,6 +232,8 @@
                 seed: element.seed,
                 region: element.region,
                 jersey: element.jersey,
+                draft_pick: element.draft_pick,
+                drafted_round: element.drafted_round,
                 position: element.position,
                 class: element.class,
                 eliminated: eliminated_player,

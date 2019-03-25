@@ -1,0 +1,24 @@
+{
+  "name": "fantasy-marchmadness",
+  "version": "1.0.0",
+  "description": "Individual point tracker for march madness",
+  "scripts": {
+    "backend": "nodemon backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "node_modules/.bin/eslint .",
+    "pretest": "node_modules/.bin/eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ALeonard9/fantasy-marchmadness.git"
+  },
+  "author": "adamleonard9@gmail.com",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.15.3",
+    "eslint-config-strongloop": "^2.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-vue": "^5.2.2"
+  }
+}
