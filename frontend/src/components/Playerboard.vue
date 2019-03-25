@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <h1>Player Data</h1>
-        <v-btn color="primary" @click.native="testSomething">Load Data</v-btn>
+        <!-- <v-btn color="primary" @click.native="testSomething">Load Data</v-btn> -->
       <div>
         <vue-good-table :columns="columns" :rows="playerDataRows"  @on-row-click="onRowClick" 
           :search-options="{enabled: true, trigger: 'enter',placeholder: 'What are you looking for?'}" 
@@ -120,12 +120,8 @@
       ...mapActions([
         'sendDraftSelectionPost'
       ]),
-      testSomething () {
-        this.sendDraftSelectionPost('test')
-      },
       onRowClick (params) {
         this.sendDraftSelectionPost(params.row)
-        // console.log(params.row)
       },
       loadPlayerStats() {
         fetch(`http://localhost:8080/playerboard`, defaultOptions)
