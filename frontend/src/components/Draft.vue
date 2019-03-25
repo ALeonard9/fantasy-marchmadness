@@ -44,7 +44,7 @@
               <!-- <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
               <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated }">{{ props.item.region }}</td> -->
               <td class="text-xs-left hidden-xs-only">{{ props.item.drafted_round }}</td>
-              <td class="text-xs-left">{{ props.item.drafted_position }}</td>
+              <td class="text-xs-left">{{ props.item.draft_pick }}</td>
               <td class="text-xs-center hidden-xs-only">{{ props.item.scoring_average }}</td>
               <td class="text-xs-center hidden-xs-only">{{ props.item.projected_score }}</td>
               <td class="text-xs-left">{{ props.item.total }}</td>
@@ -149,7 +149,7 @@
           })
           .then((data) => {
             this.drafted_players = [];
-            this.drafted_player_pagination = {'sortBy': 'drafted_position', 'ascending': true, 'rowsPerPage': -1};
+            this.drafted_player_pagination = {'sortBy': 'draft_pick', 'ascending': true, 'rowsPerPage': -1};
             this.drafted_player_headers = [
               { text: 'Owner', align: 'left', value: 'owner'},
               { text: 'Player', value: 'full_name' },
@@ -157,7 +157,7 @@
               // { text: 'Seed', value: 'seed', class: 'hidden-xs-only' },
               // { text: 'Region', value: 'region', class: 'hidden-xs-only' },
               { text: 'Round', value: 'drafted_round', class: 'hidden-xs-only'},
-              { text: 'Pick', value: 'drafted_position'},
+              { text: 'Pick', value: 'draft_pick'},
               { text: 'Scoring', value: 'scoring_average', class: 'hidden-xs-only'},
               { text: 'Projection', value: 'projected_score', class: 'hidden-xs-only'},
               { text: 'Total', value: 'total'}
@@ -179,7 +179,7 @@
                 seed: element.seed,
                 region: element.region,
                 jersey: element.jersey,
-                drafted_position: element.drafted_position,
+                draft_pick: element.draft_pick,
                 drafted_round: element.drafted_round,
                 eliminated: eliminated_player,
                 total: element.total
