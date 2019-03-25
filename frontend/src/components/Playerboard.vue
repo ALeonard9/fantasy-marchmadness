@@ -20,7 +20,7 @@
   import { VueGoodTable } from 'vue-good-table'
   import 'vue-good-table/dist/vue-good-table.css'
   
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
 
   var defaultHeaders = {
     Accept: 'application/json',
@@ -118,10 +118,10 @@
     },
     methods: {
       ...mapActions([
-        'sendDraftSelectionPost'
+        'setPostDraftSelectionPost'
       ]),
       onRowClick (params) {
-        this.sendDraftSelectionPost(params.row)
+        this.setPostDraftSelectionPost(params.row)
       },
       loadPlayerStats() {
         fetch(`http://localhost:8080/playerboard`, defaultOptions)
