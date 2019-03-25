@@ -3,7 +3,7 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import JsonCSV from 'vue-json-csv'
-import { store } from './store/index'
+import store from './store'
 
 Vue.component('downloadCsv', JsonCSV)
 Vue.config.productionTip = false
