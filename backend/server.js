@@ -1,5 +1,7 @@
 'use strict';
 
+import { axios } from 'axios;
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const winston = require('winston');
@@ -126,13 +128,22 @@ app.get('/playerboard', async (req, res) => {
 
 
 //All posts APIs
+async function postDraftPick(player) {
+  console.log('hello');
+  const query_string = `INSERT INTO `mm`.`drafted` (group_id, owner_id, player_id, draft_round, draft_pick) VALUES (1, 3, '${player_id}', 1, 3);`
+    return await mysql_lib.mysql_query("Drafted Player", query_string);
+}
 app.post('/draft_player', async (req, res) => {
-    let query_string = ''
-    query_string += "INSERT INTO `mm`.`drafted` (group_id, owner_id, player_id, draft_round, draft_pick) VALUES (1, 3, " + req.body.player_id + ", 1, 3);"
-    let response = await mysql_lib.mysql_query("Drafted Player", query_string)
-    res.send(JSON.stringify(response));
+  const response = await postDraftPick(req.body)
+  res.send(JSON.stringify(response));
 })
 
+// app.post('/draft_player', async (req, res) => {
+//     let query_string = ''
+//     query_string += "INSERT INTO `mm`.`drafted` (group_id, owner_id, player_id, draft_round, draft_pick) VALUES (1, 3, " + req.body.player_id + ", 1, 3);"
+//     let response = await mysql_lib.mysql_query("Drafted Player", query_string)
+//     res.send(JSON.stringify(response));
+// })
 //All apis regarding scraping player, game, and score data.
 app.get('/scrape_all', async (req, res) => {
     var response = await scraper.scrape();

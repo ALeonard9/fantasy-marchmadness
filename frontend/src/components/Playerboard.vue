@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <h1>Player Data</h1>
-        <!-- <v-btn color="primary" @click.native="testSomething">Load Data</v-btn> -->
+        <v-btn color="primary" @click.native="draftPlayer">Draft Player</v-btn>
       <div>
         <vue-good-table :columns="columns" :rows="playerDataRows"  @on-row-click="onRowClick" 
           :search-options="{enabled: true, trigger: 'enter',placeholder: 'What are you looking for?'}" 
@@ -76,7 +76,7 @@
   import { VueGoodTable } from 'vue-good-table'
   import 'vue-good-table/dist/vue-good-table.css'
   
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   var defaultHeaders = {
     Accept: 'application/json',
@@ -121,7 +121,7 @@
         columns: [
           {
             label: 'Owner',
-            field: 'owner'
+            field: 'owner_id'
           },
           {
             label: 'Player',
@@ -152,6 +152,11 @@
     created: function () {
       this.loadPlayerStats()
     },
+    computed: {
+      ...mapGetters({
+        draftSelection: 'getDraftSelection'
+      })
+    },
     mounted: function () {
       if(window.innerWidth < 1100){
         this.mobile = true;
@@ -174,10 +179,14 @@
     },
     methods: {
       ...mapActions([
-        'setPostDraftSelectionPost'
+        'setPostDraftSelectionPost',
+        'draftSelectedPlayer'
       ]),
       onRowClick (params) {
         this.setPostDraftSelectionPost(params.row)
+      },
+      draftPlayer () {
+        this.draftSelectedPlayer({'draftSelection': this.draftSelection, 'ownerId': 1})
       },
       loadPlayerStats() {
         fetch(`http://localhost:8080/playerboard`, defaultOptions)

@@ -9,6 +9,8 @@
     "start": "npm run serve"
   },
   "dependencies": {
+    "axios": "^0.16.2",
+    "read-pkg": "^5.0.0",
     "vue": "^2.6.6",
     "vue-good-table": "^2.16.3",
     "vue-json-csv": "^1.2.4",
