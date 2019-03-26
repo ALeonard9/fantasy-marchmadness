@@ -122,9 +122,6 @@ app.get('/playerboard', async (req, res) => {
     res.send(JSON.stringify(response));
 });
 
-
-
-
 //All posts APIs
 async function postDraftPick(player) {
   const query_string = `INSERT INTO mm.drafted (group_id, owner_id, player_id, draft_round, draft_pick) VALUES (1, 3, '${player.player_id}', 1, 3);`
@@ -135,12 +132,6 @@ app.post('/draft_player', async (req, res) => {
   res.send(JSON.stringify(response));
 })
 
-// app.post('/draft_player', async (req, res) => {
-//     let query_string = ''
-//     query_string += "INSERT INTO `mm`.`drafted` (group_id, owner_id, player_id, draft_round, draft_pick) VALUES (1, 3, " + req.body.player_id + ", 1, 3);"
-//     let response = await mysql_lib.mysql_query("Drafted Player", query_string)
-//     res.send(JSON.stringify(response));
-// })
 //All apis regarding scraping player, game, and score data.
 app.get('/scrape_all', async (req, res) => {
     var response = await scraper.scrape();
