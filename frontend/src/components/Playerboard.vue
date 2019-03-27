@@ -4,69 +4,13 @@
       <v-layout column align-center>
         <h1>Player Data</h1>
         <v-btn color="primary" @click.native="draftPlayer">Draft Player</v-btn>
-      <div>
-        <vue-good-table :columns="columns" :rows="playerDataRows"  @on-row-click="onRowClick" 
-          :search-options="{enabled: true, trigger: 'enter',placeholder: 'What are you looking for?'}" 
-          :pagination-options="{enabled:true, mode:'pages'}" theme="black-rhino"
-        />
-      </div>
-        
-
-          <!-- <v-card>
-          <v-card-title>
-            <div class="text-xs-center pt-2">
-              <v-btn v-if="!score_filter" color="primary" @click.native="score_filter_toggle">All Players</v-btn>
-              <v-btn v-if="score_filter" color="primary" @click.native="score_filter_toggle">10+ PPG Scorers</v-btn>
-              <v-btn v-if="draft_filter === 0" color="primary" @click.native="draft_filter_toggle">All Players</v-btn>
-              <v-btn v-if="draft_filter === 1" color="primary" @click.native="draft_filter_toggle">Drafted</v-btn>
-              <v-btn v-if="draft_filter === 2" color="primary" @click.native="draft_filter_toggle">Undrafted</v-btn>
-              <download-csv
-                  class = "v-btn theme--light primary"
-                  name = "fantasymarchmadness2019.csv"
-                  :data   = "items">
-                  Download
-              </download-csv>
-            </div>
-            <v-spacer></v-spacer>
-            <v-text-field
-              append-icon="search"
-              label="Search"
-              single-line
-              hide-details
-              v-model="search"
-            ></v-text-field>
-          </v-card-title>
-        <v-data-table
-          :search="search"
-          :headers="headers"
-          :items="items"
-          :loading="loading"
-          hide-actions
-          class="elevation-1"
-        >
-          <template slot="items" slot-scope="props">
-            <td  v-bind:class="{ drafted: props.item.drafted }"><router-link :to="{ name: 'Owner', params: {id: props.item.id } }">{{ props.item.name }}</router-link></td>
-            <td class="text-xs-left" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">#{{ props.item.jersey }} {{ props.item.full_name }}</td>
-            <td class="text-xs-left " v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.school }}</td>
-            <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.seed }}</td>
-            <td class="text-xs-center hidden-xs-only" v-bind:class="{ drafted: props.item.drafted, eliminated: props.item.eliminated }">{{ props.item.region }}</td>
-            <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.scoring_average }}</td>
-            <td class="text-xs-center hidden-xs-only" v-bind:class="{ eliminated: props.item.eliminated, drafted: props.item.drafted }">{{ props.item.projected_score }}</td>
-
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round1 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round2 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round3 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round4 }}</td>
-            <td class="text-xs-center hidden-xs-only">{{ props.item.round5 }}</td>
-            <td class="text-xs-center">{{ props.item.round6 }}</td>
-            <td class="text-xs-center">{{ props.item.total }}</td>
-          </template>
-
-          <v-alert slot="no-results" :value="true" color="error" icon="warning">
-            Your search for "{{ search }}" found no results.
-          </v-alert>
-        </v-data-table>
-        </v-card> -->
+        <v-btn color="primary" @click.native="retrievePlayerboardData">Load Players</v-btn>
+        <div>
+          <vue-good-table :columns="columns" :rows="playerDataRows"  @on-row-click="onRowClick" 
+            :search-options="{enabled: true, trigger: 'enter',placeholder: 'What are you looking for?'}" 
+            :pagination-options="{enabled:true, mode:'pages'}" theme="black-rhino"
+          />
+        </div>
       </v-layout>
     </v-slide-y-transition>
   </v-container>
@@ -151,10 +95,12 @@
     },
     created: function () {
       this.loadPlayerStats()
+      this.retrievePlayerboardData()
     },
     computed: {
       ...mapGetters({
-        draftSelection: 'getDraftSelection'
+        draftSelection: 'getDraftSelection',
+        getPlayerboardData: 'getPlayerboardData'
       })
     },
     mounted: function () {
@@ -180,7 +126,8 @@
     methods: {
       ...mapActions([
         'setPostDraftSelectionPost',
-        'draftSelectedPlayer'
+        'draftSelectedPlayer',
+        'retrievePlayerboardData'
       ]),
       onRowClick (params) {
         this.setPostDraftSelectionPost(params.row)
@@ -194,12 +141,13 @@
             return response.json()
             .then((playerInfo) => {
               playerInfo.forEach(player => {
-                this.playerDataRows.push(player)
+                // this.playerDataRows.push(player)
+                this.playerDataRows = this.getPlayerboardData
               })
             })
           })
       },
-      loadPlayerboard(){
+      loadPlayerboard() {
         fetch(`http://localhost:8080/playerboard`, defaultOptions)
           .then((response) => {
             return response.json();

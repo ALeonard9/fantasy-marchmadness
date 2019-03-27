@@ -5,7 +5,8 @@ import mutations from './mutations'
 const state = {
     draftSelection: {},
     requestSent: false,
-    reqeustProcessed: false
+    requestProcessed: false,
+    allPlayerboardData: []
 }
 
 export default { state, mutations, getters, actions }

@@ -124,7 +124,9 @@ app.get('/playerboard', async (req, res) => {
 
 //All posts APIs
 async function postDraftPick(player) {
-  const query_string = `INSERT INTO mm.drafted (group_id, owner_id, player_id, draft_round, draft_pick) VALUES (1, 3, '${player.player_id}', 1, 3);`
+  const query_string = `update mm.player set owner_id = 1 where id = ${player.player_id}; INSERT INTO mm.drafted (group_id, owner_id, player_id, draft_round, draft_pick) VALUES (1, 3, '${player.player_id}', 1, 3);`
+  //This line is for when we have some sort of authentication going and we can dynamically check who perfomed a draft selection (and pull their owner_id from that authentication)
+  // const query_string = `update mm.player set owner_id = ${owner.owner_id} where id = ${player.player_id}`
   return await mysql_lib.mysql_query("Drafted Player", query_string);
 }
 app.post('/draft_player', async (req, res) => {
