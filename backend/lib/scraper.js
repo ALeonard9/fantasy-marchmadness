@@ -272,7 +272,7 @@ function update_player_info(player_id) {
 }
 
 function scrape_player_info(espn_player_id){
-  Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     request(`http://www.espn.com/mens-college-basketball/player/_/id/${espn_player_id}`, function(error, resp, html) {
       if (error) {
         console.log(error.stack);
@@ -312,7 +312,7 @@ function scrape_player_info(espn_player_id){
 }
 
 function scrape_teams_before(){
-  Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     request('http://www.espn.com/mens-college-basketball/bracketology', function(error, resp, html) {
       if (error) {
         console.log(error.stack);
@@ -340,7 +340,7 @@ function scrape_teams_before(){
 }
 
 function scrape_teams(){
-  Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     request('http://www.espn.com/mens-college-basketball/tournament/bracket', function(error, resp, html) {
       if (error) {
         console.log(error.stack);
@@ -375,8 +375,7 @@ function scrape_teams(){
 }
 
 function scrape_team_mascots(team_espn_id){
-
-  Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     var options = {
       url: `http://www.espn.com/mens-college-basketball/team/_/id/${team_espn_id}`,
       timeout: 8000,
@@ -410,7 +409,7 @@ function scrape_team_mascots(team_espn_id){
 }
 
 function add_players(team_id){
-  Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     request(`http://www.espn.com/mens-college-basketball/team/stats/_/id/${team_id}`, function(error, resp, html) {
       if (error) {
         console.log(error.stack);
@@ -441,7 +440,7 @@ function add_players(team_id){
 }
 
 function scrape_schedule(date_var){
-  Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     request(`http://www.espn.com/mens-college-basketball/schedule/_/date/${date_var}`, function(error, resp, html) {
       if (error) {
         console.log(error.stack);
