@@ -4,12 +4,13 @@
       <v-layout column align-center>
         <h1>Player Data</h1>
         <v-btn color="primary" @click.native="draftPlayer">Draft Player</v-btn>
-        <v-btn color="primary" @click.native="retrievePlayerboardData">Load Players</v-btn>
+        <v-btn color="primary" @click.native="retrievePlayerboardData">Load Data</v-btn>
         <div>
-          <vue-good-table :columns="columns" :rows="playerDataRows"  @on-row-click="onRowClick" 
+          <vue-good-table :columns="columns" :rows="getPlayerboardData"  @on-row-click="onRowClick" 
             :search-options="{enabled: true, trigger: 'enter',placeholder: 'What are you looking for?'}" 
             :pagination-options="{enabled:true, mode:'pages'}" theme="black-rhino"
           />
+          
         </div>
       </v-layout>
     </v-slide-y-transition>
@@ -65,7 +66,7 @@
         columns: [
           {
             label: 'Owner',
-            field: 'owner_id'
+            field: 'name'
           },
           {
             label: 'Player',
@@ -94,7 +95,7 @@
       }
     },
     created: function () {
-      this.loadPlayerStats()
+      // this.loadPlayerStats()
       this.retrievePlayerboardData()
     },
     computed: {
@@ -131,6 +132,10 @@
       ]),
       onRowClick (params) {
         this.setPostDraftSelectionPost(params.row)
+
+        //Eventually make this a nice gui modal or something but for now, it works as an alert.
+        alert(`You\'ve selected ${params.row.full_name} as your selection. Is this your final decision?`)
+        this.draftSelectedPlayer({'draftSelection': this.draftSelection, 'ownerId': 1})
       },
       draftPlayer () {
         this.draftSelectedPlayer({'draftSelection': this.draftSelection, 'ownerId': 1})
@@ -141,7 +146,6 @@
             return response.json()
             .then((playerInfo) => {
               playerInfo.forEach(player => {
-                // this.playerDataRows.push(player)
                 this.playerDataRows = this.getPlayerboardData
               })
             })
