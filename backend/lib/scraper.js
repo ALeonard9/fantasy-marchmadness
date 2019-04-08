@@ -465,10 +465,10 @@ function scrape_schedule(date_var){
           case date_var >= 20190330 && date_var <= 20190331:
             round = '4';
             break;
-          case date_var === 20190406:
+          case date_var === '20190406':
             round = '5';
             break;
-          case date_var === 20190408:
+          case date_var === '20190408':
             round = '6';
             break;
         }
