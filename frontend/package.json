@@ -9,6 +9,8 @@
     "start": "npm run serve"
   },
   "dependencies": {
+    "serialize-javascript": "^2.1.2",
+    "set-value": "^3.0.1",
     "vue": "^2.6.6",
     "vue-json-csv": "^1.2.4",
     "vue-router": "^3.0.2",
