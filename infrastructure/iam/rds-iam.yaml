@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: IAM Role for MySQL RDS 
+Resources:
+  MySQLRdsRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: MySQLRdsServiceRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - rds.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonRDSDataFullAccess"
+  
+    
+Outputs:
+  MySQLlRdsRole:
+    Description: This is the rds role that will be attached to the MySQL RDS instances.
+    Value: !Ref MySQLRdsRole
+    Export:
+      Name: MySQLRdsRole

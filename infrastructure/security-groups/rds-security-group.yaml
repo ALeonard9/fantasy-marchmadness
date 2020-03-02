@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  MySQLSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: MySQL RDS security group
+      GroupName: MySQLRdsSecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          ToPort: 3306
+          FromPort: 3306
+          CidrIp: 184.54.11.56/32
+      VpcId: vpc-c767aea2
+
+Outputs:
+  MySQLSecurityGroup:
+    Description: This is the security group attached to the MySQL Instance..
+    Value: !Ref MySQLSecurityGroup
+    Export:
+      Name: MySQLSecurityGroup

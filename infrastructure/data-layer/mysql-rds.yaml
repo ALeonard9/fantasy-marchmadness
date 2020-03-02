@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  MySQLRootUser:
+    Description: This is the root user for the mysql DB
+    Type: 'AWS::SSM::Parameter::Value<String>'
+    Default: march-madness-mysql-user
+  MySQLRootPassword:
+    Description: This is the root password for the mysql DB
+    Type: 'AWS::SSM::Parameter::Value<String>'
+    Default: march-madness-mysql-password
+  
+
+Resources:
+  MySqlRdsInstance:
+    Type: "AWS::RDS::DBInstance"
+    Properties:
+      DBInstanceIdentifier: March-Madness-MySQL
+      DBName: mm
+      AllocatedStorage: "10"
+      PubliclyAccessible: True
+      MasterUsername: !Ref MySQLRootUser
+      MasterUserPassword: !Ref MySQLRootPassword
+      Engine: MySQL
+      DBInstanceClass: db.t2.micro
+      VPCSecurityGroups: 
+        -
+          !ImportValue MySQLSecurityGroup
