@@ -12,7 +12,7 @@
     "pretest": "node_modules/.bin/eslint --ignore-path .gitignore ."
   },
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^2.6.4",
     "async-promises": "^0.2.1",
     "chalk": "^2.4.2",
     "cheerio": "^1.0.0-rc.2",
